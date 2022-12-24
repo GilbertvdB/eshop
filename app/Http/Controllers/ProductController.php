@@ -13,8 +13,10 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {   
+        $products = Product::all();
+
+        return view('product.index')->with('products', $products);
     }
 
     /**
@@ -24,7 +26,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('product.create');
     }
 
     /**
@@ -35,7 +37,18 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $this->authorize('create', Product::class);
+        
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|between:0,999.99',
+            'description' => 'required|string|max:255',
+            'image' => 'required|string|max:255'
+        ]);
+    
+        $new_product = Product::create($validatedData);
+ 
+        return redirect(route('product.index'));
     }
 
     /**
