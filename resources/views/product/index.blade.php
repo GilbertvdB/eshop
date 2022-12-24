@@ -36,6 +36,7 @@
 
             </div>
         </div>
+        <img class="w-full h-24 w-24 object-cover" src="{{ asset('images/logo.jpg') }}" alt="logo">
     </div>
 </div>    
 </x-app-layout>

@@ -24,13 +24,13 @@
                 </div>
             </div>
             <div class="md:w-1/2 pl-4">
-                <div class="font-bold text-4xl mb-2">{{ $product->name }}</div>
-                <div class="mb-2">&euro;{{ $product->price }}</div>
-                <div class="mb-6">
-                    <button class="btn btn-blue mr-2">Add to Cart</button>
-                    <button class="btn btn-red">Buy Now</button>
+                <div class="font-bold text-3xl mb-2">{{ $product->name }}</div>
+                <div class="mb-2 text-3xl">&euro;{{ $product->price }}</div>
+                <div class="mb-6 mt-4">
+                <button class="font-bold text-lg py-2 px-4 rounded-full bg-blue-500 hover:bg-blue-700 text-white mr-2">Add to Cart</button>
+                <button class="font-bold text-lg py-2 px-4 rounded-full bg-red-500 hover:bg-red-700 text-white">Buy Now</button>
                 </div>
-                <div class="mb-6">{{ $product->description }}</div>
+                <div class="mb-6"><p class="text-xl">Description:</p><p>{{ $product->description }}</p></div>
             </div>
         </div>
     </div>
