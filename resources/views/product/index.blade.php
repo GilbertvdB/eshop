@@ -16,6 +16,7 @@
     <div class="flex flex-wrap -mx-4">    
     @foreach($products as $product)
     <div class="w-full md:w-1/3 px-4 py-4">
+    <a href="{{ route('product.show', $product) }}"> <!-- make it clickable and open show page -->
         <div class="max-w-sm rounded overflow-hidden shadow-lg m-4">
             <img class="w-full h-48 object-cover" src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
             <div class="px-6 py-4">
@@ -23,10 +24,11 @@
                 <p class="text-gray-700 text-base">{{ $product->description }}</p>
             </div>
             <div class="px-6 py-4">
-                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">{{ $product->price }}</span>
+                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">&euro;{{ $product->price }}</span>
             </div>
         </div>
     </div>
+    </a>
     @endforeach
     </div>
 
