@@ -186,6 +186,7 @@ return [
          * Package Service Providers...
          */
         Darryldecode\Cart\CartServiceProvider::class,
+        App\Providers\WishListProvider::class,
 
         /*
          * Application Service Providers...
