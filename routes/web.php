@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\WishListController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('cart', [CartController::class, 'cartList'])->name('cart.list');
 Route::post('cart', [CartController::class, 'addToCart'])->name('cart.store');
 Route::post('update-cart', [CartController::class, 'updateCart'])->name('cart.update');
-Route::post('remove', [CartController::class, 'removeCart'])->name('cart.remove');
-Route::post('clear', [CartController::class, 'clearAllCart'])->name('cart.clear');
+Route::post('cart/remove', [CartController::class, 'removeCart'])->name('cart.remove');
+Route::post('cart/clear', [CartController::class, 'clearAllCart'])->name('cart.clear');
+
+//routes for Wishlist
+Route::get('wishlist', [WishListController::class, 'cartList'])->name('wishlist.list');
+Route::post('wishlist', [WishListController::class, 'addToCart'])->name('wishlist.store');
+Route::post('update-wishlist', [WishListController::class, 'updateCart'])->name('wishlist.update');
+Route::post('remove', [WishListController::class, 'removeCart'])->name('wishlist.remove');
+Route::post('clear', [WishListController::class, 'clearAllCart'])->name('wishlist.clear');
+
+
 require __DIR__.'/auth.php';
