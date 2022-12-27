@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Darryldecode\Cart\Cart;
+use App\Classes\DBStorage;
 use Illuminate\Support\ServiceProvider;
 
 class WishListProvider extends ServiceProvider
@@ -25,7 +26,7 @@ class WishListProvider extends ServiceProvider
     {
         $this->app->singleton('wishlist', function($app)
         {
-            $storage = $app['session'];
+            $storage = new DBStorage();
             $events = $app['events'];
             $instanceName = 'cart_2';
             $session_key = '88uuiioo99888';
