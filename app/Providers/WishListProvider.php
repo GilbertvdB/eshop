@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Darryldecode\Cart\Cart;
+use Illuminate\Support\Facades\Auth;
 use App\Classes\DBStorage;
 use Illuminate\Support\ServiceProvider;
 
@@ -29,7 +30,8 @@ class WishListProvider extends ServiceProvider
             $storage = new DBStorage();
             $events = $app['events'];
             $instanceName = 'cart_2';
-            $session_key = '88uuiioo99888';
+            // $session_key = '88uuiioo99888';
+            $session_key = Auth::id();
             return new Cart(
                 $storage,
                 $events,
