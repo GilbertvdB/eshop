@@ -8,8 +8,7 @@
             <br>
             <div class="ml-20">
                 <span class="text-gray-500"><a href={{ route('cart.list') }}>Your Cart</a></span>
-                <span class="text-xl font-bold">/ Information / </span>
-                <span class="text-gray-500">Payment / </span>
+                <span class="text-xl font-bold">/ Payment / </span>
                 <span class="text-gray-500">Confirmation</span>
             </div>
             <hr class="my-2 border-black"> 
