@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\WishListController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -50,5 +51,7 @@ Route::post('update-wishlist', [WishListController::class, 'updateCart'])->name(
 Route::post('remove', [WishListController::class, 'removeCart'])->name('wishlist.remove');
 Route::post('clear', [WishListController::class, 'clearAllCart'])->name('wishlist.clear');
 
+//routes for checkout
+Route::resource('checkout', CheckoutController::class)->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
