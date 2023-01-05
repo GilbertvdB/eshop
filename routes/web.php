@@ -52,6 +52,9 @@ Route::post('remove', [WishListController::class, 'removeCart'])->name('wishlist
 Route::post('clear', [WishListController::class, 'clearAllCart'])->name('wishlist.clear');
 
 //routes for checkout
-Route::resource('checkout', CheckoutController::class)->middleware(['auth', 'verified']);
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/checkout', [CheckoutController::class, 'getCheckout'])->name('checkout.index');
+    Route::post('/checkout/order', [CheckoutController::class, 'placeOrder'])->name('checkout.place.order');
+});
 
 require __DIR__.'/auth.php';
