@@ -15,8 +15,16 @@ class ProductController extends Controller
     public function index()
     {   
         $products = Product::all();
-
-        return view('product.index', compact('products'));
+        
+        $wish_list = app('wishlist');
+        $wishlistItems = $wish_list->getContent();
+        $wishlist = $wishlistItems->pluck('id')->toArray();
+        // $test = $wishlistItems->pluck('id')->join(',');
+        
+         
+        return view('product.index', compact('products'))
+        ->with(['wishlist' => $wishlist]);
+        // ->with(['test' => $test]);
     }
 
     /**
@@ -58,8 +66,14 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Product $product)
-    {
-        return view('product.show')->with('product', $product);
+    {   
+        $wish_list = app('wishlist');
+        $wishlistItems = $wish_list->getContent();
+        $wishlist = $wishlistItems->pluck('id')->toArray();
+
+        return view('product.show')
+        ->with('product', $product)
+        ->with('wishlist', $wishlist);
     }
 
     /**

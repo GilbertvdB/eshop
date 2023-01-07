@@ -40,8 +40,6 @@ class WishListController extends Controller
 
     }
 
-
-
     public function addToCart()
     {
         $wish_list = app('wishlist');
@@ -54,7 +52,8 @@ class WishListController extends Controller
 
         session()->flash('success', 'Product is Added to Wishlist Successfully !');
 
-        return redirect()->route('wishlist.list');
+        // return redirect()->route('wishlist.list');
+        return back();
     }
 
     public function updateCart(Request $request)
@@ -83,7 +82,8 @@ class WishListController extends Controller
 
         session()->flash('success', 'Item Wishlist Removed Successfully !');
 
-        return redirect()->route('wishlist.list');
+        // return redirect()->route('wishlist.list');
+        return back();
     }
 
     public function clearAllCart()
