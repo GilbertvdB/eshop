@@ -18,23 +18,21 @@
                         <table class="w-full text-sm lg:text-base" cellspacing="0">
                           <thead>
                             <tr class="h-12 uppercase">
-                              <th class="hidden md:table-cell"></th>
+                              <th class="md:table-cell"></th>
                               <th class="text-left">Name</th>
                               <th class="pl-5 text-left lg:text-right lg:pl-0">
                                 <span class="lg:hidden" title="Quantity">Qtd</span>
-                                <span class="hidden lg:inline">Quantity</span>
+                                <span class="lg:inline">Quantity</span>
                               </th>
-                              <th class="hidden text-right md:table-cell"> price</th>
-                              <th class="hidden text-right md:table-cell"> Remove </th>
+                              <th class="text-right md:table-cell"> price</th>
+                              <th class="text-right md:table-cell"> Remove </th>
                             </tr>
                           </thead>
                           <tbody>
                               @foreach ($cartItems as $item)
                             <tr>
-                              <td class="hidden pb-4 md:table-cell">
-                                <a href="#">
-                                  <img src="{{ $item->attributes->image }}" class="w-20 rounded" alt="Thumbnail">
-                                </a>
+                              <td class="pb-4 md:table-cell">
+                                  <img class="w-20 h-52 object-cover" src="{{ asset('images/' . $item->image) }}" alt="{{ $item->name }}">
                               </td>
                               <td>
                                 <a href="#">
@@ -56,12 +54,12 @@
                                   </div>
                                 </div>
                               </td>
-                              <td class="hidden text-right md:table-cell">
+                              <td class="text-right md:table-cell">
                                 <span class="text-sm font-medium lg:text-base">
                                 &euro;{{ $item->price }}
                                 </span>
                               </td>
-                              <td class="hidden text-right md:table-cell">
+                              <td class="text-right md:table-cell">
                                 <form action="{{ route('cart.remove') }}" method="POST">
                                   @csrf
                                   <input type="hidden" value="{{ $item->id }}" name="id">
