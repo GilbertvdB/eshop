@@ -2,83 +2,74 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Contracts\OrderContract;
+use App\Classes\PaymentService;
+use App\Http\Controllers\Controller;
+use Carbon\Exceptions\BadComparisonUnitException;
 use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    protected $orderRepository;
+
+    protected $payMent;
+
+    public function __construct(OrderContract $orderRepository, PaymentService $payMent)
     {
-        return view('checkout.index');
+        $this->payMent = $payMent;
+        $this->orderRepository = $orderRepository;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getCheckout()
     {
-        return view('checkout.create');
+        return view('checkout.checkout');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function placeOrder(Request $request)
     {
-        //
+        // Before storing the order we should implement the
+        // request validation which I leave it to you
+        $order = $this->orderRepository->storeOrderDetails($request->all());
+
+        // dd($order);
+
+        // You can add more control here to handle if the order
+        // is not stored properly
+        if ($order) {
+            // $this->payMent->processPayment($order);
+
+            $order = $this->complete($order);
+
+            return view('checkout.success', compact('order'));
+        }
+        else {
+            return redirect()->back()->with('message','Order not placed');
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+    public function complete($request)
+    {   
+        // $paymentId = $request->input('paymentId');
+        // $payerId = $request->input('PayerID');
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        $paymentId = $request->order_number;
+        $payerId = $request->user_id;   
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $status = $this->payMent->completePayment($paymentId, $payerId);
+
+        $order = Order::where('order_number', $status['invoiceId'])->first();
+        $order->status = 'processing';
+        $order->payment_status = 1;
+        $order->payment_method = 'PayMent -'.$status['salesId'];
+        $order->save();
+
+        \Cart::session($payerId)->clear();
+        
+        // return redirect()->route('success', compact('order'));
+
+        return $order;
+        
     }
 }

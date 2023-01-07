@@ -24,7 +24,12 @@
     <option value="paypal">PayPal</option>
     <option value="applepay">Apple Pay</option>
   </select><br><br>
+  <h1><strong>CreditCard Information</strong></h1>
+  <input class="mt-2" type="text" id="creditcardnumber" name="creditcardnumber" placeholder="CreditCard Number" required>
+  <input class="mt-2" type="text" id="expirationdate" name="expirationdate" placeholder="Expiration Date" required>
+  <input class="mt-2 w-16" type="text" id="cvv" name="cvv" placeholder="CVV" required>
+
   <hr class="my-4">
-  <button type="submit" class="px-6 py-2 text-sm font-bold rounded shadow bg-lime-500">Next</button>
+  <button type="submit" class="px-6 py-2 text-sm font-bold rounded shadow bg-lime-500">Place Order</button>
 </form> 
 </div>

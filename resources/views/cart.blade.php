@@ -85,10 +85,7 @@
                         </div>
                         <br>
                         <div>
-                        <form action="{{ route('checkout.index') }}" method="POST">
-                        @csrf
-                        <button class="px-6 py-2 text-sm rounded shadow text-red-100 bg-blue-500">Check Out!</button>
-                        </form>
+                        <a href="{{ route('checkout.index') }}" class="px-6 py-2 text-sm rounded shadow text-red-100 bg-blue-500">Proceed To Checkout</a>
                         </div>
 
                       </div>

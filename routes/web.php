@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\WishListController;
 use App\Http\Controllers\ProductController;
@@ -52,6 +53,13 @@ Route::post('remove', [WishListController::class, 'removeCart'])->name('wishlist
 Route::post('clear', [WishListController::class, 'clearAllCart'])->name('wishlist.clear');
 
 //routes for checkout
-Route::resource('checkout', CheckoutController::class)->middleware(['auth', 'verified']);
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/checkout', [CheckoutController::class, 'getCheckout'])->name('checkout.index');
+    Route::post('/checkout/order', [CheckoutController::class, 'placeOrder'])->name('checkout.place.order');
+    Route::get('checkout/payment/complete', [CheckoutController::class, 'complete'])->name('checkout.payment.complete');
+    // Route::view('/checkout/success', 'checkout.success')->name('success');
+});
+
+Route::get('account/orders', [AccountController::class, 'getOrders'])->name('account.orders');
 
 require __DIR__.'/auth.php';
