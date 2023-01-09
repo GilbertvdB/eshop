@@ -7,13 +7,13 @@
       @php($stars = 4)
       @php($reviews = 15)
   </x-slot>
-  <main class="flex max-w-7xl mx-auto border">
+  <main class="flex max-w-7xl mx-auto">
           <div class="my-6 w-3/4">
             <div class="container mx-auto">
                 <div class="flex">
                     <div class="grow flex flex-col w-full p-8 text-gray-800 bg-white shadow-lg pin-r pin-y md:w-4/5 lg:w-4/5">
                       @if ($message = Session::get('success'))
-                          <div class="p-4 mb-3 bg-green-400 rounded">
+                          <div class="p-2 mb-3 bg-green-300 rounded">
                               <p class="text-green-800">{{ $message }}</p>
                           </div>
                       @endif
@@ -67,7 +67,7 @@
                                       <input type="hidden" name="id" value="{{ $item->id}}" >
                                     <input type="text" name="quantity" value="{{ $item->quantity }}" 
                                     class="w-16 text-center h-6 text-gray-800 outline-none rounded border border-blue-600" />
-                                    <button class="px-4 mt-1 py-1.5 text-sm rounded rounded shadow text-violet-100 bg-violet-500">Update</button>
+                                    <button class="px-4 mt-1 py-1.5 text-sm rounded rounded shadow text-sky-100 bg-sky-500">Update</button>
                                     </form>
                                   </div>
                                 </div>
