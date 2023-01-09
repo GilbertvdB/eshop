@@ -14,30 +14,7 @@ class WishListController extends Controller
         // return view('test')->with('info', $data);
         
         $cartItems = $wish_list->getContent();
-        return view('wishlist', compact('cartItems'));
-    }
-
-    public function add()
-    {
-        $wish_list = app('wishlist');
-        $id = request('id');
-        $name = request('name');
-        $price = request('price');
-        $qty = request('qty');
-
-        $wish_list->add($id, $name, $price, $qty, array());
-        
-        return redirect(route('wishlist.list'));
-    }
-
-    public function delete($id)
-    {
-        $wish_list = app('wishlist');
-
-        $wish_list->remove($id);
-
-        return back();
-
+        return view('wishlist', compact('cartItems'))->with('wishlist', $wish_list);
     }
 
     public function addToCart()
@@ -47,10 +24,12 @@ class WishListController extends Controller
         $name = request('name');
         $price = request('price');
         $qty = request('qty');
+        $image = request('image');
+        $attributes = array('image' => $image);
 
-        $wish_list->add($id, $name, $price, $qty, array());
+        $wish_list->add($id, $name, $price, $qty, $attributes);
 
-        session()->flash('success', 'Product is Added to Wishlist Successfully !');
+        session()->flash('success', 'Item added successfully!');
 
         // return redirect()->route('wishlist.list');
         return back();
@@ -70,7 +49,7 @@ class WishListController extends Controller
 
         $wish_list->update($id, array('quantity' => $qty));
 
-        session()->flash('success', 'Item Wishlist is Updated Successfully !');
+        session()->flash('success', 'Item updated successfully!');
 
         return redirect()->route('wishlist.list');
     }
@@ -80,7 +59,7 @@ class WishListController extends Controller
         $wish_list = app('wishlist');
         $wish_list->remove($request->id);
 
-        session()->flash('success', 'Item Wishlist Removed Successfully !');
+        session()->flash('success', 'Item removed successfully!');
 
         // return redirect()->route('wishlist.list');
         return back();
@@ -91,7 +70,7 @@ class WishListController extends Controller
         $wish_list = app('wishlist');
         $wish_list->clear();
 
-        session()->flash('success', 'All Item Wishlist Cleared Successfully !');
+        session()->flash('success', 'Wishlist cleared successfully!');
 
         return redirect()->route('wishlist.list');
     }
