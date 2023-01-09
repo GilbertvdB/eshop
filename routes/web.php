@@ -6,6 +6,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\WishListController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -59,6 +60,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('checkout/payment/complete', [CheckoutController::class, 'complete'])->name('checkout.payment.complete');
     // Route::view('/checkout/success', 'checkout.success')->name('success');
 });
+
+//routes for Review
+Route::get('review', [ReviewController::class, 'index'])->name('review.index');
+Route::post('review', [ReviewController::class, 'store'])->name('review.store');
+
 
 Route::get('account/orders', [AccountController::class, 'getOrders'])->name('account.orders');
 
