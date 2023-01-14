@@ -12,11 +12,12 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
                     <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">
                         {{ __('Products') }}
+                    </x-nav-link>
+                    @auth
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link :href="route('product.create')" :active="request()->routeIs('product.create')">
                         {{ __('Add') }}
@@ -24,13 +25,15 @@
                     <x-nav-link :href="route('review.index')" :active="request()->routeIs('review.index')">
                         {{ __('Reviews') }}
                     </x-nav-link>
-
+                    @endauth
 
                     <a href="{{ route('cart.list') }}" class="flex items-center">
                         <svg class="w-5 h-5 text-black-600" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                             <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                         </svg>
-                       <span class="text-red-700">{{ Cart::session(Auth::user()->id)->getTotalQuantity()}}</span> 
+                        @auth
+                       <span class="text-red-700">{{ Cart::session(Auth::user()->id)->getTotalQuantity()}}</span>
+                       @endauth 
                     </a>
                     <a href="{{ route('wishlist.list') }}" class="flex items-center">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg">
@@ -43,6 +46,7 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
+                @auth
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
@@ -77,6 +81,9 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
+                @else
+                <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+                @endauth
             </div>
 
             <!-- Hamburger -->
@@ -121,6 +128,7 @@
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
+            @auth
             <div class="px-4">
                 <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
@@ -142,6 +150,9 @@
                     </x-responsive-nav-link>
                 </form>
             </div>
+            @else
+            <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+            @endauth
         </div>
     </div>
 </nav>

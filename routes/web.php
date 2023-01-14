@@ -21,7 +21,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect()->route('product.index');
 });
 
 Route::get('/dashboard', function () {
@@ -34,9 +35,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('product', [ProductController::class, 'index'])->name('product.index');
+
 //routegroup for the models tables.
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('product', ProductController::class);
+Route::group(['middleware' => ['auth', 'verified']], function () {
+    Route::resource('product', ProductController::class)->except(['index']);
+    
 });
 
 //routes for Cart

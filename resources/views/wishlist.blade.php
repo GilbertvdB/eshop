@@ -15,6 +15,7 @@
                           </div>
                       @endif
                         <h3 class="text-3xl font-bold">Wishlist</h3>
+                        <hr>
                       <div class="flex-1">
                         <table class="w-full text-sm lg:text-base">
                           <thead>
