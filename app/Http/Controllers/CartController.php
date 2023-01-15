@@ -4,14 +4,29 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use Carbon\Carbon;
+
+use Illuminate\Support\Str;
 
 class CartController extends Controller
 {
     public function cartList()
     {   
-        $userId = Auth::id();
+        $expirationTime = null;
+        if (Auth::check()) {
+            $userId = Auth::id();
+            $sessionKey = $userId;
+        } else {
+            $sessionKey = request()->cookie('guest_session');
+            // // remove
+            // $sesh = session()->get('guest_session');
+            // $createdAt = Carbon::parse(request()->cookie('guest_session_expire'));
+            // $expiresAt = Carbon::parse($createdAt)->addMinutes(30);
+            // $expirationTime = $expiresAt->diffInSeconds(Carbon::now());
+        }
 
-        $cartItems = \Cart::session($userId)->getContent();
+        $cartItems = \Cart::session($sessionKey)->getContent();
         // dd($cartItems);
         return view('cart', compact('cartItems'));
     }
@@ -19,9 +34,14 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {   
-        $userId = Auth::id();
+        if (Auth::check()) {
+            $userId = Auth::id();
+            $sessionKey = $userId;
+        } else {
+            $sessionKey = request()->cookie('guest_session');
+        }
 
-        \Cart::session($userId)->add([
+        \Cart::session($sessionKey)->add([
             'id' => $request->id,
             'name' => $request->name,
             'price' => $request->price,
@@ -37,9 +57,14 @@ class CartController extends Controller
 
     public function updateCart(Request $request)
     {   
-        $userId = Auth::id();
+        if (Auth::check()) {
+            $userId = Auth::id();
+            $sessionKey = $userId;
+        } else {
+            $sessionKey = request()->cookie('guest_session');
+        }
 
-        \Cart::session($userId)->update(
+        \Cart::session($sessionKey)->update(
             $request->id,
             [
                 'quantity' => [
@@ -56,9 +81,14 @@ class CartController extends Controller
 
     public function removeCart(Request $request)
     {   
-        $userId = Auth::id();
+        if (Auth::check()) {
+            $userId = Auth::id();
+            $sessionKey = $userId;
+        } else {
+            $sessionKey = request()->cookie('guest_session');
+        }
 
-        \Cart::session($userId)->remove($request->id);
+        \Cart::session($sessionKey)->remove($request->id);
         session()->flash('success', 'Item removed successfully!');
 
         return redirect()->route('cart.list');
@@ -66,9 +96,14 @@ class CartController extends Controller
 
     public function clearAllCart()
     {   
-        $userId = Auth::id();
+        if (Auth::check()) {
+            $userId = Auth::id();
+            $sessionKey = $userId;
+        } else {
+            $sessionKey = request()->cookie('guest_session');
+        }
 
-        \Cart::session($userId)->clear();
+        \Cart::session($sessionKey)->clear();
 
         session()->flash('success', 'Cart cleared successfully!');
 

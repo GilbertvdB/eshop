@@ -31,7 +31,15 @@ class WishListProvider extends ServiceProvider
             $events = $app['events'];
             $instanceName = 'cart_2';
             // $session_key = '88uuiioo99888';
-            $session_key = Auth::id();
+            // $session_key = Auth::id();
+
+            if (Auth::check()) {
+                $userId = Auth::id();
+                $session_key = $userId;
+            } else {
+                $session_key = request()->cookie('guest_session');
+            }
+
             return new Cart(
                 $storage,
                 $events,
