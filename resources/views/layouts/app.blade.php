@@ -15,7 +15,8 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+            <!-- include('layouts.navigation') -->
+            @include('site.partials.nav')
 
             <!-- Page Heading -->
             @if (isset($header))
@@ -26,10 +27,15 @@
                 </header>
             @endif
 
+            @include('site.partials.banner')
+
             <!-- Page Content -->
             <main>
                 {{ $slot }}
             </main>
+
+            <!-- Page Footer -->
+            @include('site.partials.footer')
         </div>
     </body>
 </html>

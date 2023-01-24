@@ -7,7 +7,7 @@
     <hr>
     <!-- Products -->
     <div>
-    <div class="flex flex-wrap -mx-4">    
+    <div class="flex flex-wrap mx-4">    
     @foreach($products as $product)
     <div class="w-full md:w-1/3 px-4 py-4">
     <a href="{{ route('product.show', $product) }}"> <!-- make it clickable and open show page -->
