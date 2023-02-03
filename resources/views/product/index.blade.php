@@ -1,18 +1,20 @@
 <x-app-layout>
-<div class="py-12">
+
+@include('site.partials.banner')
+
+<div class="py-0 pb-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+                <div class="p-6 text-gray-900" style="background-image: url({{ asset('/images/puzzlebanner.jpg') }}); width: 100%; height: 100%; background-size: cover;">
 
-    <hr>
     <!-- Products -->
     <div>
-    <div class="flex flex-wrap -mx-4">    
+    <div class="flex flex-wrap mx-4">    
     @foreach($products as $product)
     <div class="w-full md:w-1/3 px-4 py-4">
-    <a href="{{ route('product.show', $product) }}"> <!-- make it clickable and open show page -->
-        <div class="max-w-sm rounded overflow-hidden shadow-lg m-4">
-            <img class="w-full h-52 object-cover" src="{{ asset('images/' . $product->image) }}" alt="{{ $product->name }}">
+    <a href="{{ route('product.show', $product) }}">
+        <div class="max-w-sm rounded overflow-hidden shadow-lg m-4 bg-white">
+            <img class="w-full h-52 object-cover mt-1" src="{{ asset('images/' . $product->image) }}" alt="{{ $product->name }}">
             <div class="px-6 py-2">
                 <div class="font-bold text-xl mb-2">{{ $product->name }}</div>
                 <div class="text-gray-700 text-sm h-min lg:h-24">{{ $product->description }}</div>
@@ -78,6 +80,8 @@
     </a>
     @endforeach
     </div>
+
+    <div id="target">Helo</div>
 
     </div>
 
