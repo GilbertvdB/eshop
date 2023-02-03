@@ -17,14 +17,14 @@
         <div id="myCarousel">
             <div class="slides">
                 <div class="slide active">
-                    <a href="#target">
+                    <a class="div1" href="#target">
                     <div class="bg-blue-200 rounded-lg">
                         <div class="flex justify-between items-center px-24 h-64">
                             <div class="flex flex-col text-4xl">
                                 <span>Puzzles & More,</span>
                                 <span>The most puzzling of items.</span>
                             </div>   
-                            <div class="transform hover:scale-105 transition duration-300 ease-in-out">
+                            <div class="div2 transform transition duration-300 ease-in-out">
                                 <img class="h-52" src="{{ asset('/images/puzzle1.png') }}" alt="Item 1">
                             </div>
                         </div>
@@ -32,31 +32,35 @@
                     </a>
                 </div>
                 <div class="slide">
+                    <a class="div1" href="#">
                     <div class="bg-violet-200 rounded-lg">
                         <div class="flex justify-between items-center px-24 h-64">
                             <div class="flex flex-col text-4xl">
                                 <span>Train your brain,</span>
                                 <span>Endless hours of none stop fun.</span>
                             </div>   
-                            <div class="transform hover:scale-105 transition duration-500 ease-in-out">
+                            <div class="div2 transform transition duration-500 ease-in-out">
                                 <img class="h-52" src="{{ asset('/images/puzzle2.png') }}" alt="Item 2">
                             </div>
                         </div>
                     </div>
+                    </a>
                 </div>
                 <div class="slide">
+                <a class="div1" href="#">
                 <div class="bg-rose-200 rounded-lg">
                         <div class="flex justify-between items-center px-24 h-64">
                             <div class="flex flex-col text-4xl">
                                 <span>Shop till you drop,</span>
                                 <span>Wide range for the whole family.</span>
                             </div>   
-                            <div class="transform hover:scale-105 transition duration-500 ease-in-out">
+                            <div class="div2 transform transition duration-500 ease-in-out">
                                 <img class="h-52" src="{{ asset('/images/puzzle3.png') }}" alt="Item 3">
                             </div>
                         </div>
                     </div>
                 </div>
+                </a>
             </div>
 
 
@@ -111,6 +115,9 @@
     let dots = document.querySelectorAll("#dotContainer .rounded-full");
     let currentSlide = 0;
 
+    const div1 = document.querySelector(".div1");
+    const div2 = document.querySelector(".div2");
+
     function goToSlide(n) {
         slides[currentSlide].classList.remove("active");
         dots[currentSlide].classList.remove("bg-black");
@@ -130,6 +137,16 @@
     setInterval(function() {
         goToSlide(currentSlide + 1);
     }, 4000);
+
+    
+
+    div1.addEventListener("mouseenter", function () {
+    div2.style.transform = "scale(1.05)";
+    });
+
+    div1.addEventListener("mouseleave", function () {
+    div2.style.transform = "scale(1)";
+    });
 
     </script>
 
