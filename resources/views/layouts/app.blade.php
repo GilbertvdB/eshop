@@ -27,7 +27,7 @@
                 </header>
             @endif
 
-            @include('site.partials.banner')
+            
 
             <!-- Page Content -->
             <main>

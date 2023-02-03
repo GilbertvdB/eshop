@@ -37,12 +37,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+//routegroup for the product models tables. Public routes
 Route::get('product', [ProductController::class, 'index'])->name('product.index');
+Route::get('product/{product}', [ProductController::class, 'show'])->name('product.show');
 
-//routegroup for the models tables.
+//non public routes for the product models tables.
 Route::group(['middleware' => ['auth', 'verified']], function () {
-    Route::resource('product', ProductController::class)->except(['index']);
-    
+    Route::resource('product', ProductController::class)->except(['index', 'show']);
 });
 
 //routes for Cart
