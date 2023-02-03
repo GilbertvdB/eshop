@@ -12,7 +12,7 @@
     <div class="flex flex-wrap mx-4">    
     @foreach($products as $product)
     <div class="w-full md:w-1/3 px-4 py-4">
-    <a href="{{ route('product.show', $product) }}"> <!-- make it clickable and open show page -->
+    <a href="{{ route('product.show', $product) }}">
         <div class="max-w-sm rounded overflow-hidden shadow-lg m-4 bg-white">
             <img class="w-full h-52 object-cover mt-1" src="{{ asset('images/' . $product->image) }}" alt="{{ $product->name }}">
             <div class="px-6 py-2">
@@ -80,6 +80,8 @@
     </a>
     @endforeach
     </div>
+
+    <div id="target">Helo</div>
 
     </div>
 

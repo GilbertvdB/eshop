@@ -17,6 +17,7 @@
         <div id="myCarousel">
             <div class="slides">
                 <div class="slide active">
+                    <a href="#target">
                     <div class="bg-blue-200 rounded-lg">
                         <div class="flex justify-between items-center px-24 h-64">
                             <div class="flex flex-col text-4xl">
@@ -28,6 +29,7 @@
                             </div>
                         </div>
                     </div>
+                    </a>
                 </div>
                 <div class="slide">
                     <div class="bg-violet-200 rounded-lg">
