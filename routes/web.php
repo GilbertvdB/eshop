@@ -79,4 +79,7 @@ Route::post('review', [ReviewController::class, 'store'])->name('review.store');
 
 Route::get('account/orders', [AccountController::class, 'getOrders'])->name('account.orders');
 
+//admin routes
+Route::view('/admin', 'admin.dashboard.index')->name('admin');
+
 require __DIR__.'/auth.php';
