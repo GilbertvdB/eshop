@@ -25,6 +25,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        // $this->middleware('guest')->except('logout');
         // $this->middleware('guest:admin')->except('logout');
     }
 
@@ -41,7 +42,7 @@ class LoginController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function login(Request $request)
+    public function adminlogin(Request $request)
     {
         $this->validate($request, [
             'email'   => 'required|email',
@@ -65,5 +66,20 @@ class LoginController extends Controller
         Auth::guard('admin')->logout();
         $request->session()->invalidate();
         return redirect()->route('admin.login');
+    }
+
+    public function login(Request $request)
+    {
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+
+        if (Auth::guard('admin')->attempt($request->only(['email','password']), $request->get('remember'))){
+            // return redirect()->intended('/admin/dashboard');
+            return redirect()->intended(route('admin.dashboard'));
+        }
+
+        return back()->withInput($request->only('email', 'remember'));
     }
 }
