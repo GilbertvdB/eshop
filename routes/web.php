@@ -80,6 +80,13 @@ Route::post('review', [ReviewController::class, 'store'])->name('review.store');
 Route::get('account/orders', [AccountController::class, 'getOrders'])->name('account.orders');
 
 //admin routes
-Route::view('/admin', 'admin.dashboard.index')->name('admin');
+
+// Route::get('/helo', 'LoginController@showLoginForm')->name('admin.login');
+
+// Route::get('/admin', function () {
+//     return view('admin.auth.login');
+// });
+
+require 'admin.php';
 
 require __DIR__.'/auth.php';
