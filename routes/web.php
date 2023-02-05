@@ -76,20 +76,10 @@ Route::group(['middleware' => ['auth']], function () {
 Route::get('review', [ReviewController::class, 'index'])->name('review.index');
 Route::post('review', [ReviewController::class, 'store'])->name('review.store');
 
-
+//routes for orders
 Route::get('account/orders', [AccountController::class, 'getOrders'])->name('account.orders');
 
 //admin routes
-Route::get('/helo', function () {
-    return view('admin.dashboard.index');
-})->name('admin.dashboard');
-
-// Route::get('/helo', 'LoginController@showLoginForm')->name('admin.login');
-
-// Route::get('/admin', function () {
-//     return view('admin.auth.login');
-// });
-
 require 'admin.php';
 
 require __DIR__.'/auth.php';

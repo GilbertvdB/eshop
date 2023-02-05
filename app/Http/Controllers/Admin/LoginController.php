@@ -42,18 +42,17 @@ class LoginController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function adminlogin(Request $request)
+    public function login(Request $request)
     {
         $this->validate($request, [
             'email'   => 'required|email',
             'password' => 'required|min:6'
         ]);
-        if (Auth::guard('admin')->attempt([
-            'email' => $request->email,
-            'password' => $request->password
-        ], $request->get('remember'))) {
+
+        if (Auth::guard('admin')->attempt($request->only(['email','password']), $request->get('remember'))){
             return redirect()->intended(route('admin.dashboard'));
         }
+
         return back()->withInput($request->only('email', 'remember'));
     }
 
@@ -68,18 +67,5 @@ class LoginController extends Controller
         return redirect()->route('admin.login');
     }
 
-    public function login(Request $request)
-    {
-        $this->validate($request, [
-            'email'   => 'required|email',
-            'password' => 'required|min:6'
-        ]);
-
-        if (Auth::guard('admin')->attempt($request->only(['email','password']), $request->get('remember'))){
-            // return redirect()->intended('/admin/dashboard');
-            return redirect()->intended(route('admin.dashboard'));
-        }
-
-        return back()->withInput($request->only('email', 'remember'));
-    }
+    
 }
