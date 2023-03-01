@@ -76,7 +76,10 @@ Route::group(['middleware' => ['auth']], function () {
 Route::get('review', [ReviewController::class, 'index'])->name('review.index');
 Route::post('review', [ReviewController::class, 'store'])->name('review.store');
 
-
+//routes for orders
 Route::get('account/orders', [AccountController::class, 'getOrders'])->name('account.orders');
+
+//admin routes
+require 'admin.php';
 
 require __DIR__.'/auth.php';
