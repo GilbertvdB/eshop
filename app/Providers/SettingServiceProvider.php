@@ -30,7 +30,7 @@ class SettingServiceProvider extends ServiceProvider
     public function boot()
     {
         // only use the Settings package if the Settings table is present in the database
-        if (!app()->runningInConsole() && Schema::hasColumns('settings')) {
+        if (!app()->runningInConsole() && Schema::hasTable('settings')) {
             $settings = \App\Models\Setting::all();
             foreach ($settings as $key => $setting) {
                 config(['settings.' . $setting->key => $setting->value]);
