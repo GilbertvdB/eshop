@@ -10,45 +10,47 @@
             <div class="bg-gray-200 overflow-hidden shadow-sm sm:rounded-lg">
 
             <div class="flex">
-                <div class="border border-gray-300 bg-white w-1/5 h-86">
-                    <button class="tablinks block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-gray-200" onclick="openSettings(event, 'General')" >General</button>
+                <div class="w-1/5">
+                    <div class="border border-gray-300 bg-white h-86 shadow-sm sm:rounded-lg">
+                    <button class="tablinks block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-gray-200" onclick="openSettings(event, 'General')" id="defaultOpen">General</button>
                     <button class="tablinks block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-gray-200" onclick="openSettings(event, 'Logo')">Site Logo</button>
                     <button class="tablinks block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-gray-200" onclick="openSettings(event, 'Footer-seo')">Footer &amp; SEO</button>
                     <button class="tablinks block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-gray-200" onclick="openSettings(event, 'Social-links')">Social Links</button>
                     <button class="tablinks block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-gray-200" onclick="openSettings(event, 'Analytics')">Analytics</button>
                     <button class="tablinks block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-gray-200" onclick="openSettings(event, 'Payments')">Payments</button>
+                    </div>
                 </div>
 
-                <div id="General" class="tabcontent border bg-white border-gray-300 w-4/5 h-72 ml-4 p-2 hidden">
-                    <h3 class="text-2xl font-bold">General</h3>
-                    @include('admin.settings.includes.general')
-                </div>
+                    <div id="General" class="tabcontent border bg-white border-gray-300 w-4/5 h-fit ml-4 p-2 hidden">
+                        <h3 class="text-2xl font-bold">General Settings</h3>
+                        @include('admin.settings.includes.general')
+                    </div>
 
-                <div id="Logo" class="tabcontent border bg-white border-gray-300 w-4/5 h-72 ml-4 p-2 hidden">
-                    <h3 class="text-2xl font-bold">Site Logo</h3>
-                    @include('admin.settings.includes.logo')
-                </div>
+                    <div id="Logo" class="tabcontent border bg-white border-gray-300 w-4/5 h-fit ml-4 p-2 hidden">
+                        <h3 class="text-2xl font-bold">Site Logo</h3>
+                        @include('admin.settings.includes.logo')
+                    </div>
 
-                <div id="Footer-seo" class="tabcontent border bg-white border-gray-300 w-4/5 h-72 ml-4 p-2 hidden">
-                    <h3 class="text-2xl font-bold">Footer &amp; SEO</h3>
-                    @include('admin.settings.includes.footer_seo')
-                </div>
+                    <div id="Footer-seo" class="tabcontent border bg-white border-gray-300 w-4/5 h-fit ml-4 p-2 hidden">
+                        <h3 class="text-2xl font-bold">Footer &amp; SEO</h3>
+                        @include('admin.settings.includes.footer_seo')
+                    </div>
 
-                <div id="Social-links" class="tabcontent border bg-white border-gray-300 w-4/5 h-72 ml-4 p-2 hidden">
-                    <h3 class="text-2xl font-bold">Social Links</h3>
-                    @include('admin.settings.includes.social_links')
-                </div>
+                    <div id="Social-links" class="tabcontent border bg-white border-gray-300 w-4/5 h-fit ml-4 p-2 hidden">
+                        <h3 class="text-2xl font-bold">Social Links</h3>
+                        @include('admin.settings.includes.social_links')
+                    </div>
 
-                <div id="Analytics" class="tabcontent border bg-white border-gray-300 w-4/5 h-72 ml-4 p-2 hidden">
-                    <h3 class="text-2xl font-bold">Analytics</h3>
-                    @include('admin.settings.includes.analytics')
-                </div>
+                    <div id="Analytics" class="tabcontent border bg-white border-gray-300 w-4/5 h-fit ml-4 p-2 hidden">
+                        <h3 class="text-2xl font-bold">Analytics</h3>
+                        @include('admin.settings.includes.analytics')
+                    </div>
 
-                <div id="Payments" class="tabcontent border bg-white border-gray-300 w-4/5 h-72 ml-4 p-2 hidden">
-                    <h3 class="text-2xl font-bold">Payments</h3>
-                    @include('admin.settings.includes.payments')
-                </div>
-                </div>
+                    <div id="Payments" class="tabcontent border bg-white border-gray-300 w-4/5 h-fit ml-4 p-2 hidden">
+                        <h3 class="text-2xl font-bold">Payments</h3>
+                        @include('admin.settings.includes.payments')
+                    </div>
+            </div>
 
 
                 <script>
