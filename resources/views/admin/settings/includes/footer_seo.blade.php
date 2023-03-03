@@ -1,0 +1,1 @@
+<div>This is Footer & SEO page!</div>

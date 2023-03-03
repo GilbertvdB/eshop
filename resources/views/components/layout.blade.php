@@ -14,7 +14,7 @@
         <!-- Scripts / Edit to use backend ccs and js -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased bg-gray-200">
         @include('admin.partials.header')
         @include('admin.partials.sidebar')
 

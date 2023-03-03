@@ -1,1 +1,1 @@
-<div>Hello Analytics!</div>
+<div>This is Analytics page!</div>
