@@ -20,7 +20,7 @@
         <!-- Default Email Address -->
         <div class="mt-4">
             <x-input-label for="default_email_address" :value="__('Default Email Address')" />
-            <x-text-input id="default_email_address" class="block mt-1 mb-2 w-full" type="email" name="config('settings.default_email_address')" :value="config('settings.default_email_address')" placeholder="Enter store default email address"  />
+            <x-text-input id="default_email_address" class="block mt-1 mb-2 w-full" type="email" name="default_email_address" :value="config('settings.default_email_address')" placeholder="Enter store default email address" />
             <x-input-error :messages="$errors->get('default_email_address')" class="mt-2" />
         </div>
 
