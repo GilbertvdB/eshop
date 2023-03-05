@@ -24,7 +24,7 @@ use App\Http\Middleware\GenerateGuestSessionMiddleware;
 
 Route::get('/test', function () {
     return view('test');
-});
+})->name('test');
 
 Route::get('/', function () {
     // return view('welcome');

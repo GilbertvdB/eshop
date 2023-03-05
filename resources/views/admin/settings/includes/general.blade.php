@@ -1,12 +1,12 @@
 <div>
-    <hr class="pb-4">
+    <hr class="py-4">
     <form method="POST" action="{{ route('admin.settings.update') }}">
         @csrf
 
         <!--Site Name -->
         <div>
             <x-input-label for="site_name" :value="__('Site Name')" />
-            <x-text-input id="site_name" class="block mt-1 mb-2 w-full" type="text" name="site_name" :value="config('settings.site_name')" placeholder="Enter site name" required autofocus />
+            <x-text-input id="site_name" class="block mt-1 mb-2 w-full" type="text" name="site_name" :value="config('settings.site_name')" placeholder="Enter site name"  />
             <x-input-error :messages="$errors->get('site_name')" class="mt-2" />
         </div>
 
@@ -20,7 +20,7 @@
         <!-- Default Email Address -->
         <div class="mt-4">
             <x-input-label for="default_email_address" :value="__('Default Email Address')" />
-            <x-text-input id="default_email_address" class="block mt-1 mb-2 w-full" type="email" name="config('settings.default_email_address')" :value="old('default_email_address')" placeholder="Enter store default email address" required />
+            <x-text-input id="default_email_address" class="block mt-1 mb-2 w-full" type="email" name="config('settings.default_email_address')" :value="config('settings.default_email_address')" placeholder="Enter store default email address"  />
             <x-input-error :messages="$errors->get('default_email_address')" class="mt-2" />
         </div>
 
@@ -40,7 +40,7 @@
 
         <div class="flex items-center justify-end mt-4">
             <x-primary-button class="ml-4">
-                {{ __('Submit') }}
+                {{ __('Update Settings') }}
             </x-primary-button>
         </div>
     </form>

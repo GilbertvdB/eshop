@@ -26,11 +26,11 @@ class SettingsTableSeeder extends Seeder
         ],
         [
             'key'                       =>  'currency_code',
-            'value'                     =>  'GBP',
+            'value'                     =>  'EUR',
         ],
         [
             'key'                       =>  'currency_symbol',
-            'value'                     =>  '£',
+            'value'                     =>  '€',
         ],
         [
             'key'                       =>  'site_logo',
@@ -69,6 +69,10 @@ class SettingsTableSeeder extends Seeder
             'value'                     =>  '',
         ],
         [
+            'key'                       =>  'social_tiktok',
+            'value'                     =>  '',
+        ],
+        [
             'key'                       =>  'google_analytics',
             'value'                     =>  '',
         ],
@@ -98,6 +102,18 @@ class SettingsTableSeeder extends Seeder
         ],
         [
             'key'                       =>  'paypal_secret_id',
+            'value'                     =>  '',
+        ],
+        [
+            'key'                       =>  'ideal_payment_method',
+            'value'                     =>  '',
+        ],
+        [
+            'key'                       =>  'ideal_client_id',
+            'value'                     =>  '',
+        ],
+        [
+            'key'                       =>  'ideal_secret_id',
             'value'                     =>  '',
         ],
     ];
