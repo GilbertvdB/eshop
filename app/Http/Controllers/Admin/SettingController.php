@@ -34,10 +34,6 @@ class SettingController extends Controller
             }
 
         return back()->with('success', 'Settings updated successfully.');
-        // return redirect()->route('admin.settings')->with('success', 'Settings updated successfully.');
-        // return $this->index();
-
-        // return redirect()->to(url()->previous())->with('success', 'Resource updated successfully.');
     }
 }
 

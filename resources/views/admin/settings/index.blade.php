@@ -22,7 +22,7 @@
 
     <div class="py-2">
         <div class="max-w-7xl mx-44 sm:px-6 lg:px-8">
-            <div class="bg-gray-200 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-gray-200 overflow-hidden">
 
             <div class="flex">
                 <div class="w-1/5">
