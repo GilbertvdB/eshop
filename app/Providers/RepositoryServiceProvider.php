@@ -10,6 +10,7 @@ class RepositoryServiceProvider extends ServiceProvider
 {
     protected $repositories = [
         OrderContract::class => OrderRepository::class,
+        CategoryContract::class => CategoryRepository::class,
     ];
 
     /**
