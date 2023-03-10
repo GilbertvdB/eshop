@@ -18,7 +18,7 @@
             <div>
                 <a href="/">
                     <div class="h-20 fill-current text-4xl text-white">
-                        Admin Pane
+                        Admin Panel
                     </div>
                 </a>
             </div>
