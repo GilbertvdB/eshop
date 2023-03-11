@@ -27,7 +27,7 @@ class CategoryRepository implements CategoryContract
      */
     public function __construct(Category $model)
     {
-        parent::__construct($model);
+        //parent::__construct($model);
         $this->model = $model;
     }
 
@@ -37,9 +37,10 @@ class CategoryRepository implements CategoryContract
      * @param array|string[] $columns
      * @return Illuminate\Database\Eloquent\Collection
      */
-    public function listCategories(string $order = 'id', string $sort = 'desc', array|string[] $columns = ['*']): Illuminate\Database\Eloquent\Collection
+    public function listCategories(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
     {
-        return $this->all($columns, $order, $sort);
+        return Category::all($columns, $order, $sort);
+        
     }
 
     /**
@@ -50,7 +51,7 @@ class CategoryRepository implements CategoryContract
     public function findCategoryById(int $id)
     {
         try {
-            return $this->findOrFail($id);
+            return Category::findOrFail($id);
 
         } catch (ModelNotFoundException $e) {
 
@@ -126,7 +127,7 @@ class CategoryRepository implements CategoryContract
      * @throws Illuminate\Database\Eloquent\ModelNotFoundException
      * @throws Exception
      */
-    public function deleteCategory(int $id): bool
+    public function deleteCategory(int $id)
     {
         $category = $this->findCategoryById($id);
 
@@ -136,5 +137,5 @@ class CategoryRepository implements CategoryContract
 
         return $category->delete();
     }
-    
+
 }

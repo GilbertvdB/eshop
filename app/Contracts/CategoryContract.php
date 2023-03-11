@@ -38,5 +38,5 @@ interface CategoryContract
      * @param $id
      * @return bool
      */
-    public function deleteCategory($id);
+    public function deleteCategory(int $id);
 }
