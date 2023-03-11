@@ -7,6 +7,7 @@ use App\Traits\UploadAble;
 use Illuminate\Http\UploadedFile;
 use App\Contracts\CategoryContract;
 use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use InvalidArgumentException;
 
@@ -37,10 +38,14 @@ class CategoryRepository implements CategoryContract
      * @param array|string[] $columns
      * @return Illuminate\Database\Eloquent\Collection
      */
-    public function listCategories(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
+    public function listCategories(string $order = 'id', string $sort = 'asc', array $columns = ['*'])
     {
-        return Category::all($columns, $order, $sort);
+        // return Category::all($columns, $order, $sort);
         
+        return Category::query()
+        ->with('parent')
+        ->orderBy($order, $sort)
+        ->paginate(10, $columns, 'page');
     }
 
     /**
@@ -117,7 +122,7 @@ class CategoryRepository implements CategoryContract
         $merge = $collection->merge(compact('menu', 'image', 'featured'));
 
         $category->update($merge->all());
-
+        
         return $category;
     }
 

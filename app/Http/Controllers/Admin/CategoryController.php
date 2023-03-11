@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Contracts\CategoryContract;
@@ -25,12 +26,18 @@ class CategoryController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = $this->categoryRepository->listCategories();
+        // $categories = $this->categoryRepository->listCategories();
+        $search = $request->query('search');
+
+        $categories = Category::where('name', 'like', '%'.$search.'%')
+                    ->orWhere('slug', 'like', '%'.$search.'%')
+                    ->paginate(10);
 
         $pageTitle = 'Categories';
         $pageDescription = 'List of all categories';
+
         return view('admin.categories.index', compact('categories', 'pageTitle', 'pageDescription'));
     }
 
@@ -94,6 +101,7 @@ class CategoryController extends Controller
     public function update(Request $request)
     {
         $validated = $request->validate([
+            'id'        =>  'required',
             'name'      =>  'required|max:191',
             'parent_id' =>  'required|not_in:0',
             'image'     =>  'mimes:jpg,jpeg,png|max:1000'
@@ -107,6 +115,8 @@ class CategoryController extends Controller
         }
         // return $this->responseRedirect('admin.categories.index', 'Category added successfully' ,'success',false, false);
         return back()->with('success', 'Category updated successfully');
+
+        // return view('test')->with(['data' => $data]);
     }
 
 

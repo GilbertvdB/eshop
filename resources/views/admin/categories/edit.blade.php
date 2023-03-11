@@ -9,9 +9,16 @@
     </x-slot>
 
     @section('content')
+
     <div class="py-2">
         <div class="max-w-7xl mx-44 sm:px-6 lg:px-8">
 
+        @if(session('success'))
+    <div style="background-color: green; color: white; padding: 10px;">
+        {{ session('success') }}
+    </div>
+    @endif
+    
             <div class="row border border-gray-300 bg-white h-86 shadow-sm sm:rounded-lg">
                     <div class="col-md-8 mx-auto">
                     <div class="tile">
