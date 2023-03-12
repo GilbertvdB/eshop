@@ -99,12 +99,16 @@ class CategoryController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request)
-    {
+    {   
+        // dd($request->all());
+        
         $validated = $request->validate([
             'id'        =>  'required',
             'name'      =>  'required|max:191',
             'parent_id' =>  'required|not_in:0',
-            'image'     =>  'mimes:jpg,jpeg,png|max:1000'
+            'image'     =>  'mimes:jpg,jpeg,png|max:1000',
+            'menu'      =>  'nullable',
+            'featured'  =>  'nullable', 
         ]);
 
         $category = $this->categoryRepository->updateCategory($validated);
