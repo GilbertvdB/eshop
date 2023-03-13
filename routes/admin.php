@@ -33,6 +33,9 @@ Route::group(['middleware' => ['auth:admin']], function () {
         Route::get('/{id}/delete', [CategoryController::class, 'delete'])->name('admin.categories.delete');
     });
 
+    
+
+
 });
 
 });

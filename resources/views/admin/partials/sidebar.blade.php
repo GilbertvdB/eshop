@@ -51,7 +51,7 @@
       Settings</a>
     </li>
     <li class="text-white font-medium py-2">
-      <a href="{{ route('admin.categories.index') }}" class="block flex items-center hover:text-sky-500 {{ (request()->routeIs('admin.categories.index')) ? 'text-sky-500' : '' }}">
+      <a href="{{ route('admin.categories.index') }}" class="block flex items-center hover:text-sky-500 {{ (str_starts_with(request()->route()->getName(), 'admin.categories')) ? 'text-sky-500' : '' }}">
       <svg class="mr-2" width="24px" height="24px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="#ffffff">
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
       <g id="SVGRepo_iconCarrier"> <title>category-list</title> <g id="Layer_2" data-name="Layer 2"> <g id="invisible_box" data-name="invisible box"> 
