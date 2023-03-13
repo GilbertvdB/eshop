@@ -40,12 +40,12 @@ class CategoryRepository implements CategoryContract
      */
     public function listCategories(string $order = 'id', string $sort = 'asc', array $columns = ['*'])
     {
-        // return Category::all($columns, $order, $sort);
+        return Category::all($columns, $order, $sort);
         
-        return Category::query()
-        ->with('parent')
-        ->orderBy($order, $sort)
-        ->paginate(10, $columns, 'page');
+        // return Category::query()
+        // ->with('parent')
+        // ->orderBy($order, $sort)
+        // ->paginate(10, $columns, 'page');
     }
 
     /**

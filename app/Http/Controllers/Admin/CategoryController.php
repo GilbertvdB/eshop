@@ -28,11 +28,13 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        // $categories = $this->categoryRepository->listCategories();
         $search = $request->query('search');
 
         $categories = Category::where('name', 'like', '%'.$search.'%')
                     ->orWhere('slug', 'like', '%'.$search.'%')
+                    ->orWhereHas('parent', function($query) use ($search) {
+                        $query->where('name', 'like', '%'.$search.'%');
+                    })
                     ->paginate(10);
 
         $pageTitle = 'Categories';
