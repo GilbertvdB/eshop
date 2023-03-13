@@ -28,14 +28,15 @@
                     <div class="">
                         <h3 class="text-lg font-bold">{{ $pageDescription }}</h3>
                         <hr class="py-4">
-                        <form action="{{ route('admin.brands.store') }}" method="POST" role="form" enctype="multipart/form-data">
+                        <form action="{{ route('admin.brands.update', $brand) }}" method="POST" role="form" enctype="multipart/form-data">
                             @csrf
+                            @method('patch')
                             <div class="">
                                 <!-- Name -->
                                 <div>
                                     <x-input-label for="name" :value="__('Name*')" />
-                                    <x-text-input id="name" class="block mt-1 mb-2 w-full focus:border-sky-500 focus:ring-sky-500" type="text" name="name" :value="old('name')" placeholder="Enter brand name"  required/>
-                                    <input type="hidden" name="id" value="{{ old('id') }}">
+                                    <x-text-input id="name" class="block mt-1 mb-2 w-full focus:border-sky-500 focus:ring-sky-500" type="text" name="name" :value="old('name', $brand->name)" placeholder="Enter brand name"  required/>
+                                    <input type="hidden" name="id" value="{{ $brand->id }}">
                                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                 </div>
 
@@ -43,7 +44,13 @@
                                 <div class="mt-2">
                                     <div class="flex flew-row">
                                         <div class="w-1/4">
-                                                <img src="https://via.placeholder.com/80x80?text=Placeholder+Image" id="brandImage" class="w-20 h-auto">
+                                            @if ($brand->logo != null)
+                                                <figure class="mt-2" style="width: 80px; height: auto;">
+                                                    <img src="{{ asset('storage/'.$brand->logo) }}" id="brandLogo" class="" alt="img">
+                                                </figure>
+                                            @else
+                                                <img src="https://via.placeholder.com/80x80?text=Placeholder+Image" id="brandLogo" class="w-20 h-auto">
+                                            @endif
                                         </div>
                                         <div class="w-3/4">
                                             <x-input-label for="logo" :value="__('Brand Logo')" class=""/>
@@ -58,7 +65,7 @@
                                 <!-- Submit & Cancel Buttons -->
                                 <div class="flex items-center mt-4">
                                     <button type="submit" class="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
-                                        Save brand</button>
+                                        Update Brand</button>
                                     &nbsp;&nbsp;&nbsp;
                                     <a href="{{ route('admin.brands.index') }}" class="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                                     Cancel</a>

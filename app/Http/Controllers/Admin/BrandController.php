@@ -107,7 +107,16 @@ class BrandController extends Controller
      */
     public function edit(Brand $brand)
     {
-        //
+        // $brand = Brand::find($brands);
+
+        // $this->setPageTitle('Brands', 'Edit Brand : '.$brand->name);
+        // return view('admin.brands.edit', compact('brand'));
+
+        $pageTitle = 'Brands';
+        $pageDescription = 'Edit Brand: ' . $brand->name;
+
+        return view('admin.brands.edit', compact('brand', 'pageTitle', 'pageDescription'));
+        // return view('test', compact('brand'));
     }
 
     /**
@@ -119,7 +128,33 @@ class BrandController extends Controller
      */
     public function update(Request $request, Brand $brand)
     {
-        //
+        $this->validate($request, [
+            'name'      =>  'required|max:191',
+            'image'     =>  'mimes:jpg,jpeg,png|max:1000'
+        ]);
+    
+        try {
+            $collection = new Collection($request->except('_token'));
+    
+            $logo = null;
+    
+            if ($collection->has('logo') && ($request->file('logo') instanceof UploadedFile)) {
+                $logo = $this->uploadOne($request->file('logo'), 'brands');
+            }
+    
+            $merge = $collection->merge(compact('logo'));
+    
+            // convert the collection to array and update.
+            $brand->update($merge->toArray());
+            $brand->save();
+    
+            return redirect()->back()->with('success', 'Brand updated successfully');
+    
+        } catch (QueryException $exception) {
+            throw new InvalidArgumentException($exception->getMessage());
+        }
+    
+        return redirect()->back()->with('error', 'Error occurred while updating brand.')->withInput();
     }
 
     /**
@@ -130,6 +165,9 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        //
+        $brand->delete();
+
+        return redirect()->back()->with('success', 'Brand deleted successfully.');
+
     }
 }
