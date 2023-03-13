@@ -5,9 +5,20 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Brand;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use App\Traits\UploadAble;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
+use Illuminate\Database\QueryException;
+use Doctrine\Instantiator\Exception\InvalidArgumentException;
+
+
 
 class BrandController extends Controller
 {
+    
+    use UploadAble;
+
     /**
      * Display a listing of the resource.
      *
@@ -46,10 +57,36 @@ class BrandController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request): RedirectResponse
+{
+    $this->validate($request, [
+        'name'      =>  'required|max:191',
+        'image'     =>  'mimes:jpg,jpeg,png|max:1000'
+    ]);
+
+    try {
+        $collection = new Collection($request->except('_token'));
+
+        $logo = null;
+
+        if ($collection->has('logo') && ($request->file('logo') instanceof UploadedFile)) {
+            $logo = $this->uploadOne($request->file('logo'), 'brands');
+        }
+
+        $merge = $collection->merge(compact('logo'));
+
+        $brand = new Brand($merge->all());
+
+        $brand->save();
+
+        return redirect()->route('admin.brands.index')->with('success', 'Brand added successfully');
+
+    } catch (QueryException $exception) {
+        throw new InvalidArgumentException($exception->getMessage());
     }
+
+    return redirect()->back()->with('error', 'Error occurred while creating brand.')->withInput();
+}
 
     /**
      * Display the specified resource.
