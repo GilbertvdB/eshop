@@ -13,9 +13,18 @@ class BrandController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $search = $request->query('search');
+
+        $brands = Brand::where('name', 'like', '%'.$search.'%')
+                    ->orWhere('slug', 'like', '%'.$search.'%')
+                    ->paginate(10);
+        
+        $pageTitle = 'Brands';
+        $pageDescription = 'List of all brands';
+
+        return view('admin.brands.index', compact('brands', 'pageTitle', 'pageDescription'));
     }
 
     /**
@@ -25,7 +34,10 @@ class BrandController extends Controller
      */
     public function create()
     {
-        //
+        $pageTitle = 'Brands';
+        $pageDescription = 'Create a brand';
+
+        return view('admin.brands.create', compact('pageTitle', 'pageDescription'));
     }
 
     /**
