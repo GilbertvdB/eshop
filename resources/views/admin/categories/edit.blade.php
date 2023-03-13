@@ -83,16 +83,6 @@
                                 </div>
                                 </div>
 
-                                <!-- Menu -->
-                                <div class="form-check flex items-center">
-                                    <div class="mr-4">
-                                        <x-input.checkbox id="menuz" class="form-check-input block mt-1 mb-2 text-sky-600 outline-none" name="menuz" :checked="$targetCategory->menu == 1" />
-                                    </div>
-                                    <div>
-                                        <x-input-label for="menuz" :value="__('Show in menuz')" />
-                                    </div>
-                                </div>
-
                                 <!-- Image -->
                                 <div class="mt-2">
                                     <div class="flex flew-row">
