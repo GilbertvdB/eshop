@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Contracts\OrderContract;
 use App\Repositories\OrderRepository;
+use App\Contracts\CategoryContract;
+use App\Repositories\CategoryRepository;
 use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
@@ -30,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         app()->bind(OrderContract::class, OrderRepository::class);
+        app()->bind(CategoryContract::class, CategoryRepository::class);
         Schema::defaultStringLength(191);
     }
 }

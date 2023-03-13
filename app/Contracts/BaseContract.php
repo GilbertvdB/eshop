@@ -44,7 +44,7 @@ interface BaseContract
      * @param int $id
      * @return mixed
      */
-    public function findOneOrFail(int $id);
+    public function findOrFail(int $id);
 
     /**
      * Find based on a different column
