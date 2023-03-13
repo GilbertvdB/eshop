@@ -63,7 +63,10 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'name'      =>  'required|max:191',
             'parent_id' =>  'required|not_in:0',
-            'image'     =>  'mimes:jpg,jpeg,png|max:1000'
+            'description'   =>  'nullable|string|max:255',
+            'image'     =>  'mimes:jpg,jpeg,png|max:1000',
+            'menu'          =>  'nullable',
+            'featured'      =>  'nullable', 
         ]);
 
         $category = $this->categoryRepository->createCategory($validated);
@@ -103,21 +106,22 @@ class CategoryController extends Controller
         // dd($request->all());
         
         $validated = $request->validate([
-            'id'        =>  'required',
-            'name'      =>  'required|max:191',
-            'parent_id' =>  'required|not_in:0',
-            'image'     =>  'mimes:jpg,jpeg,png|max:1000',
-            'menu'      =>  'nullable',
-            'featured'  =>  'nullable', 
+            'id'            =>  'required',
+            'description'   =>  'string|max:255',
+            'name'          =>  'required|max:191',
+            'parent_id'     =>  'required|not_in:0',
+            'image'         =>  'mimes:jpg,jpeg,png|max:1000',
+            'menu'          =>  'nullable',
+            'featured'      =>  'nullable', 
         ]);
 
         $category = $this->categoryRepository->updateCategory($validated);
 
-        if (!$category) {
-            // return $this->responseRedirectBack('Error occurred while creating category.', 'error', true, true);
+        if (!$category) 
+        {
             return back()->with('error', 'Error occurred while updating category.');
         }
-        // return $this->responseRedirect('admin.categories.index', 'Category added successfully' ,'success',false, false);
+
         return back()->with('success', 'Category updated successfully');
 
         // return view('test')->with(['data' => $data]);
