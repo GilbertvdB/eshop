@@ -1,32 +1,35 @@
 <x-layout>
     <x-slot name="header">
-        <div class="flex justify-between">
+        <div class="">
             <div>
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ $pageTitle }}</h2>
                 <p>{{ $pageDescription }}</p>
-            </div>
-            <div class="flex items-center">
-                <a href="{{ route('admin.brands.create') }}" class="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
-                Add brands</a>
             </div>
         </div>
     </x-slot>
 
     @section('content')
     <div class="py-2">
-        <div class="mx-44 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
 
         <div class="border border-gray-300 bg-white h-86 p-2 shadow-sm">
-            <div class="col-span-12">
+            <div class="">
                 <div>
-                <!-- Search bar -->    
-                <div class="mb-4 flex justify-end">
-                    <form action="{{ route('admin.brands.index') }}" method="GET">
-                        <div class="flex items-center">
-                            <input type="text" name="search" placeholder="Search brands" class="border border-gray-300 py-1 px-2 rounded-lg mr-2">
-                            <button type="submit" class="bg-sky-500 text-white py-1 px-2 rounded-lg">Search</button>
-                        </div>
-                    </form>
+                    <div class="flex flex-row justify-between mb-4">
+                    <!-- Add Brand -->
+                    <div class="flex items-center">
+                        <a href="{{ route('admin.brands.create') }}" class="py-1 px-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                        Add Brand</a>
+                    </div>    
+                    <!-- Search bar -->    
+                    <div class="flex justify-end">
+                        <form action="{{ route('admin.brands.index') }}" method="GET">
+                            <div class="flex items-center">
+                                <input type="text" name="search" placeholder="Search brands" class="border border-gray-300 py-1 px-2 rounded-lg mr-2">
+                                <button type="submit" class="bg-sky-500 text-white py-1 px-2 rounded-lg">Search</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <!-- brands Table -->
                     <div>
@@ -34,9 +37,9 @@
                             <thead>
                                 <tr>
                                     <th class="border w-16 px-4 py-2 text-left">#</th>
-                                    <th class="border w-64 px-4 py-2 text-left">Name</th>
-                                    <th class="border w-64 px-4 py-2 text-left">Slug</th>
-                                    <th class="border px-4 py-2">Action</th>
+                                    <th class="border px-4 py-2 text-left">Name</th>
+                                    <th class="border px-4 py-2 text-left">Slug</th>
+                                    <th class="border w-36 px-4 py-2">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
