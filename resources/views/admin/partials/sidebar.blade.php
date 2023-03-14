@@ -1,5 +1,5 @@
 
-<aside id="side-menu" class="absolute bg-gray-700 w-48 text-white h-96 transition-all ease-in-out delay-300">
+<aside id="side-menu" class="sidenav fixed h-full w-48 top-10 left-0 z-10 bg-gray-700 text-white overflow-x-hidden transition-all duration-500" style="transform: translateX(-100%)">
     <div class="px-2 py-2">
         <div>
             <p class="">John Doe</p>
@@ -77,13 +77,15 @@
     
   </ul>
 
-    <script>
-    const toggleBtn = document.getElementById("toggle-menu");
-    const sideMenu = document.getElementById("side-menu");
+  <script>
+    function toggleNav() {
+        var sidenav = document.querySelector(".sidenav");
+        if (sidenav.style.transform === "translateX(0%)") {
+            sidenav.style.transform = "translateX(-100%)";
+        } else {
+            sidenav.style.transform = "translateX(0%)";
+        }
+    }
+  </script>
 
-    toggleBtn.addEventListener("click", function() {
-    sideMenu.classList.toggle("hidden");
-    });
-    
-    </script>
 </aside>

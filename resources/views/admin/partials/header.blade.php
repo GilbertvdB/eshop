@@ -5,22 +5,20 @@
         <div class="flex flex-row justify-between h-10">
             <div class="flex">
                 <!-- Logo -->
-                <div class="flex items-center border-r border-white">
+                <div class="flex items-center w-48">
                     <a href="{{ route('admin.dashboard') }}">
                         <span class="px-12"> Ad Panel </span>
                     </a>
                 </div>
 
                 <!-- Hamburger -->
-                <div class="-mr-2 flex items-center">
-                    <button id="toggle-menu" class="inline-flex items-center justify-center p-2 text-white hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                <div class="-mr-2 flex items-center border-l border-white">
+                    <button class="inline-flex items-center justify-center p-2 text-white hover:text-gray-500 hover:bg-gray-100" onclick="toggleNav()">
                         <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                            <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                            <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
                 </div>
-
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
