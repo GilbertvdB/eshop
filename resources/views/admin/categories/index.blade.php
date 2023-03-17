@@ -9,8 +9,8 @@
     </x-slot>
 
     @section('content')
-    <div class="py-2">
-        <div class="mx-auto mx-44 sm:px-6 lg:px-8">
+    <div>
+        <div class="sm:px-6 lg:px-8">
 
         <div class="border border-gray-300 bg-white h-86 p-2 shadow-sm">
             <div class="col-span-12">

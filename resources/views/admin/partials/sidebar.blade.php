@@ -1,5 +1,5 @@
 
-<aside id="side-menu" class="sidenav fixed h-full w-48 top-10 left-0 z-10 bg-gray-700 text-white overflow-x-hidden transition-all duration-500" style="transform: translateX(-100%)">
+<aside id="side-menu" class="sidenav fixed h-full w-48 top-10 left-0 z-10 bg-gray-700 text-white overflow-x-hidden transition-all duration-300" style="transform: translateX(0%)">
     <div class="px-2 py-2">
         <div>
             <p class="">John Doe</p>
@@ -78,14 +78,18 @@
   </ul>
 
   <script>
-    function toggleNav() {
-        var sidenav = document.querySelector(".sidenav");
-        if (sidenav.style.transform === "translateX(0%)") {
-            sidenav.style.transform = "translateX(-100%)";
-        } else {
-            sidenav.style.transform = "translateX(0%)";
-        }
-    }
+      function toggleNav() {
+          var sidenav = document.querySelector(".sidenav");
+          var content = document.querySelector(".content");
+          if (sidenav.style.transform === "translateX(-100%)") {
+              sidenav.style.transform = "translateX(0%)";
+              content.classList.add("ml-48");
+      
+          } else {
+              sidenav.style.transform = "translateX(-100%)";
+              content.classList.remove("ml-48");
+          }
+      }
   </script>
 
 </aside>

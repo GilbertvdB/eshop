@@ -16,20 +16,22 @@
     </head>
     <body class="font-sans antialiased bg-gray-200">
         @include('admin.partials.header')
-        @include('admin.partials.sidebar')
-
+        
+        <div class="content transition-all duration-300 ml-48">
         <!-- Page Heading -->
         @if (isset($header))
                 <header class="bg-white shadow">
-                    <div class="max-w-auto mx-44 py-4 px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-auto py-4 px-4 sm:px-6 lg:px-12">
                         {{ $header }}
                     </div>
                 </header>
             @endif
 
-        <main>
+        <main class="w-full py-2">
+        @include('admin.partials.sidebar')
         @yield('content')
         </main>
+        </div>
 
     </body>
 </html>
