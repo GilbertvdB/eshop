@@ -13,12 +13,22 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product', function (Blueprint $table) {
-            $table->id();
+        Schema::create('products', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedInteger('brand_id')->index();
+            $table->string('sku');
             $table->string('name');
-            $table->decimal('price', 8, 2);
-            $table->text('description');
-            $table->string('image');
+            $table->string('slug');
+            $table->text('description')->nullable();
+            $table->unsignedInteger('quantity');
+            $table->decimal('weight', 8, 2)->nullable();
+            $table->decimal('price', 8, 2)->nullable();
+            $table->decimal('sale_price', 8, 2)->nullable();
+            $table->boolean('status')->default(1);
+            $table->boolean('featured')->default(0);
+
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
