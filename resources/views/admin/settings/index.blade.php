@@ -17,7 +17,7 @@
 
     <div class="">
         <div class="sm:px-6 lg:px-8">
-            <div class="bg-gray-200 overflow-hidden border border-red-500 max-h-screen">
+            <div class="bg-gray-200 overflow-hidden">
 
             <div class="flex">
                 <div class="w-1/5">
