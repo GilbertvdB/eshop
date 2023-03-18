@@ -2,10 +2,6 @@
     <div>
         Hello World!
 
-        <ul>
-    @foreach ($data as $item)
-        <li>{{ $item }}</li>
-    @endforeach
-</ul>
+    {{ $brand }}
     </div>
 </x-app-layout>

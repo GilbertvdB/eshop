@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\BrandController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -33,7 +34,8 @@ Route::group(['middleware' => ['auth:admin']], function () {
         Route::get('/{id}/delete', [CategoryController::class, 'delete'])->name('admin.categories.delete');
     });
 
-    
+    // Brands route
+    Route::resource('brands', BrandController::class)->names('admin.brands');
 
 
 });
