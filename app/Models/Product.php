@@ -70,4 +70,12 @@ class Product extends Pivot
     {
         return $this->hasMany(Review::class, 'product_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'product_categories', 'product_id', 'category_id');
+    }
 }
