@@ -54,7 +54,18 @@ class Product extends Pivot
     {
         return $this->hasMany(ProductImage::class);
     }
-    
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function attributes()
+    {
+        return $this->hasMany(ProductAttribute::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function reviews()
     {
         return $this->hasMany(Review::class, 'product_id');
