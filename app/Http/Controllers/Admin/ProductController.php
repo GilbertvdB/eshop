@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Traits\UploadAble;
+use Illuminate\Http\UploadedFile;
 
 class ProductController extends Controller
 {
@@ -12,9 +15,18 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {   
-        //
+        $search = $request->query('search');
+
+        $products = Product::where('sku', 'like', '%'.$search.'%')
+        ->orWhere('name', 'like', '%'.$search.'%')
+        ->paginate(10);
+
+        $pageTitle = 'Products';
+        $pageDescription = 'List of all products';
+
+        return view('admin.products.index', compact('products', 'pageTitle', 'pageDescription'));
     }
 
     /**
