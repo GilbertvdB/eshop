@@ -14,14 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('product_images', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedInteger('product_id')->index();
+            $table->id();
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->string('thumbnail')->nullable();
             $table->string('full')->nullable();
-
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
-        });
+            });
     }
 
     /**
