@@ -37,6 +37,9 @@ Route::group(['middleware' => ['auth:admin']], function () {
     // Brands route
     Route::resource('brands', BrandController::class)->names('admin.brands');
 
+    // Products Route
+    Route::resource('products', ProductController::class)->names('admin.products');
+
 
 });
 
