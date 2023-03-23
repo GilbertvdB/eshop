@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Product;
+use App\Models\Brand;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\UploadAble;
@@ -36,7 +38,13 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $brands = Brand::orderBy('name', 'asc')->get();
+        $categories = Category::orderBy('name', 'asc')->get();
+
+        $pageTitle = 'Products';
+        $pageDescription = 'Create products';
+
+        return view('admin.products.create', compact('brands', 'categories', 'pageTitle', 'pageDescription'));
     }
 
     /**
@@ -47,7 +55,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
