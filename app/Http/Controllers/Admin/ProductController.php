@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Traits\UploadAble;
 use Illuminate\Http\UploadedFile;
 use App\Http\Requests\StoreProductFormRequest;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -58,11 +59,17 @@ class ProductController extends Controller
     {
         $params = $request->validated();
 
-        $product = Product::create($params);
+        $productId = DB::table('products')->insertGetId($params);
 
+        $product = Product::find($productId);
+        
         if (!$product) {
             return redirect()->back()->with('error', 'Error occurred while creating product.');
         }
+
+        $categories = $request->input('categories', []);
+        $product->categories()->sync($categories);
+
         return redirect()->route('admin.products.index')->with('success', 'Product added successfully');
     }
 

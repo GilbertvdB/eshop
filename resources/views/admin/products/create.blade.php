@@ -79,11 +79,11 @@
                                         <x-input-error :messages="$errors->get('price')" class="mt-2" />
                                     </div>
 
-                                    <!-- Special Price -->
+                                    <!-- Sale Price -->
                                     <div class="w-1/2 ml-4">
-                                        <x-input-label for="special_price" :value="__('Special Price')" />
-                                        <x-text-input id="special_price" class="block mt-1 mb-2 w-full" type="text" name="special_price" :value="old('special_price')" placeholder="Enter product special price"  />
-                                        <x-input-error :messages="$errors->get('special_price')" class="mt-2" />
+                                        <x-input-label for="sale_price" :value="__('Sale Price')" />
+                                        <x-text-input id="sale_price" class="block mt-1 mb-2 w-full" type="text" name="sale_price" :value="old('sale_price')" placeholder="Enter product sale price"  />
+                                        <x-input-error :messages="$errors->get('sale_price')" class="mt-2" />
                                     </div>
                                 </div>
 

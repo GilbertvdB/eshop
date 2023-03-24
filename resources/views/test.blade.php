@@ -139,6 +139,11 @@ function toggleNav() {
                     <p class="mx-10">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel erat quis ipsum placerat vehicula euismod vel eros. Etiam sagittis mi eget orci sollicitudin,
                     quis varius justo vestibulum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel erat quis ipsum placerat vehicula euismod vel eros. Etiam sagittis mi eget orci sollicitudin,
                     quis varius justo vestibulum. </p>
+
+                    <br><br>
+                    {{ $product }}
+                    <br><br>
+                    {{ $product->id }}
                 </div>
             </div>
 
