@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\UploadAble;
 use Illuminate\Http\UploadedFile;
+use App\Http\Requests\StoreProductFormRequest;
 
 class ProductController extends Controller
 {
@@ -53,9 +54,16 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductFormRequest $request)
     {
-        dd($request->all());
+        $params = $request->validated();
+
+        $product = Product::create($params);
+
+        if (!$product) {
+            return redirect()->back()->with('error', 'Error occurred while creating product.');
+        }
+        return redirect()->route('admin.products.index')->with('success', 'Product added successfully');
     }
 
     /**

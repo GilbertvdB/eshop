@@ -12,13 +12,13 @@
     <div class="py-2">
         <div class="max-w-7xl sm:px-6 lg:px-8">
 
-        @if(session('success'))
-            <div class="bg-green-500 text-white px-4 py-2 rounded transition-all duration-500" id="success-message">
-                {{ session('success') }}
+        @if(session('error'))
+            <div class="bg-red-500 text-white px-4 py-2 rounded transition-all duration-500" id="error-message">
+                {{ session('error') }}
             </div>
             <script>
                 setTimeout(function() {
-                    document.getElementById("success-message").style.opacity = 0;
+                    document.getElementById("error-message").style.opacity = 0;
                 }, 1500); // 3000 milliseconds = 3 seconds
             </script>
         @endif

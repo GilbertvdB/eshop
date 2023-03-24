@@ -12,6 +12,17 @@
     <div>
         <div class="sm:px-6 lg:px-8">
 
+        @if(session('succes'))
+            <div class="bg-green-500 text-white px-4 py-2 rounded transition-all duration-500" id="succes-message">
+                {{ session('succes') }}
+            </div>
+            <script>
+                setTimeout(function() {
+                    document.getElementById("succes-message").style.opacity = 0;
+                }, 1500); // 3000 milliseconds = 3 seconds
+            </script>
+        @endif
+
         <div class="border border-gray-300 bg-white h-86 p-2 shadow-sm">
             <div class="col-span-12">
                 <div>
