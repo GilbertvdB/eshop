@@ -92,7 +92,13 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $brands = Brand::orderBy('name', 'asc')->get();
+        $categories = Category::orderBy('name', 'asc')->get();
+
+        $pageTitle = 'Products';
+        $pageDescription = 'Edit Brand: ' . $product->name;
+
+        return view('admin.products.edit', compact('product', 'brands', 'categories', 'pageTitle', 'pageDescription'));
     }
 
     /**
@@ -102,9 +108,24 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(StoreProductFormRequest $request, Product $product)
     {
-        //
+        $product->update([
+            'name' => $request->name,
+            'sku' => $request->sku,
+            'brand_id' => $request->brand_id,
+            'price' => $request->price,
+            'sale_price' => $request->sale_price,
+            'quantity' => $request->quantity,
+            'weight' => $request->weight,
+            'description' => $request->description,
+            'status' => $request->has('status') ? 1 : 0,
+            'featured' => $request->has('featured') ? 1 : 0,
+        ]);
+
+        $product->categories()->sync($request->categories);
+
+        return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');
     }
 
     /**

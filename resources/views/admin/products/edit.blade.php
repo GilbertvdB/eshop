@@ -28,14 +28,15 @@
                     <div class="">
                         <h3 class="text-lg font-bold">Product information</h3>
                         <hr class="py-4">
-                        <form action="{{ route('admin.products.store') }}" method="POST" role="form" enctype="multipart/form-data">
+                        <form action="{{ route('admin.products.update', $product) }}" method="POST" role="form" enctype="multipart/form-data">
                             @csrf
+                            @method('patch')
                             <div class="">
                                 <!-- Name -->
                                 <div>
                                     <x-input-label for="name" :value="__('Name')" />
-                                    <x-text-input id="name" class="block mt-1 mb-2 w-full" type="text" name="name" :value="old('name')" placeholder="Enter attribute name"  required/>
-                                    <input type="hidden" name="id" value="{{ old('id') }}">
+                                    <x-text-input id="name" class="block mt-1 mb-2 w-full" type="text" name="name" :value="old('name', $product->name) " placeholder="Enter attribute name"  required/>
+                                    <input type="hidden" name="id" value="{{ $product->id }}">
                                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                 </div>
 
@@ -43,7 +44,7 @@
                                     <!-- SKU -->
                                     <div class="w-1/2 mr-4">
                                         <x-input-label for="sku" :value="__('Sku')" />
-                                        <x-text-input id="sku" class="block mt-1 mb-2 w-full" type="text" name="sku" :value="old('sku')" placeholder="Enter product sku"  />
+                                        <x-text-input id="sku" class="block mt-1 mb-2 w-full" type="text" name="sku" :value="old('sku', $product->sku) " placeholder="Enter product sku"  />
                                         <x-input-error :messages="$errors->get('sku')" class="mt-2" />
                                     </div>
 
@@ -53,7 +54,7 @@
                                         <select name="brand_id" id="brand" class=" block mt-1 mb-2 w-full border-gray-300 focus:border-sky-500 focus:ring-sky-500 rounded-md shadow-sm">
                                             <option value="0" class="">Select a brand</option>
                                             @foreach($brands as $brand)
-                                                <option value="{{ $brand->id }}" class=""> {{ $brand->name }} </option>
+                                                <option value="{{ $brand->id }}" class="" @if($brand->id == old('brand_id', $product->brand_id)) selected @endif> {{ $brand->name }} </option>
                                             @endforeach
                                         </select>
                                         <x-input-error :messages="$errors->get('brand_id')" class="mt-2" />
@@ -65,7 +66,7 @@
                                     <x-input-label for="categories" :value="__('Categories')" />
                                     <select name="categories[]" id="categories" class="block mt-1 mb-2 w-full border-gray-300 focus:border-sky-500 focus:ring-sky-500 rounded-md shadow-sm" multiple>
                                         @foreach($categories as $category)
-                                            <option value="{{ $category->id }}"> {{ $category->name }} </option>
+                                        <option value="{{ $category->id }}" {{ in_array($category->id, $product->categories->pluck('id')->toArray()) ? 'selected' : '' }}> {{ $category->name }} </option>
                                         @endforeach
                                     </select>
                                     <x-input-error :messages="$errors->get('categories')" class="mt-2" />
@@ -75,14 +76,14 @@
                                     <!-- Price -->
                                     <div class="w-1/2 mr-4">
                                         <x-input-label for="price" :value="__('Price')" />
-                                        <x-text-input id="price" class="block mt-1 mb-2 w-full" type="text" name="price" :value="old('price')" placeholder="Enter product price"  />
+                                        <x-text-input id="price" class="block mt-1 mb-2 w-full" type="text" name="price" :value="old('price', $product->price) " placeholder="Enter product price"  />
                                         <x-input-error :messages="$errors->get('price')" class="mt-2" />
                                     </div>
 
                                     <!-- Sale Price -->
                                     <div class="w-1/2 ml-4">
                                         <x-input-label for="sale_price" :value="__('Sale Price')" />
-                                        <x-text-input id="sale_price" class="block mt-1 mb-2 w-full" type="text" name="sale_price" :value="old('sale_price')" placeholder="Enter product sale price"  />
+                                        <x-text-input id="sale_price" class="block mt-1 mb-2 w-full" type="text" name="sale_price" :value="old('sale_price', $product->sale_price)" placeholder="Enter product sale price"  />
                                         <x-input-error :messages="$errors->get('sale_price')" class="mt-2" />
                                     </div>
                                 </div>
@@ -91,14 +92,14 @@
                                     <!-- Quantity -->
                                     <div class="w-1/2 mr-4">
                                         <x-input-label for="quantity" :value="__('Quantity')" />
-                                        <x-text-input id="quantity" class="block mt-1 mb-2 w-full" type="number" name="quantity" :value="old('quantity')" placeholder="Enter product quantity"  />
+                                        <x-text-input id="quantity" class="block mt-1 mb-2 w-full" type="number" name="quantity" :value="old('quantity', $product->quantity)" placeholder="Enter product quantity"  />
                                         <x-input-error :messages="$errors->get('quantity')" class="mt-2" />
                                     </div>
 
                                     <!-- Weight -->
                                     <div class="w-1/2 ml-4">
                                         <x-input-label for="weight" :value="__('Weight')" />
-                                        <x-text-input id="weight" class="block mt-1 mb-2 w-full" type="text" name="weight" :value="old('weight')" placeholder="Enter product weight"  />
+                                        <x-text-input id="weight" class="block mt-1 mb-2 w-full" type="text" name="weight" :value="old('weight', $product->weight)" placeholder="Enter product weight"  />
                                         <x-input-error :messages="$errors->get('weight')" class="mt-2" />
                                     </div>
                                 </div>
@@ -111,7 +112,7 @@
                                         placeholder="{{ __('Enter description') }}"
                                         class="block mt-1 mb-2 w-full border-gray-300 focus:border-sky-500 focus:ring-sky-500 rounded-md shadow-sm"
                                         rows="8"
-                                    >{{ old('description') }}</textarea>
+                                    >{{ old('description', $product->description) }}</textarea>
                                     <x-input-error :messages="$errors->get('description')" class="mt-2" />
                                 </div>
 
@@ -119,7 +120,7 @@
                                 <div class="flex items-center">
                                     <div class="">
                                         <label class="">
-                                            <input class="text-sky-500 focus:ring-sky-500" type="checkbox" id="status" name="status"
+                                            <input class="text-sky-500 focus:ring-sky-500" type="checkbox" id="status" name="status" {{ $product->status == 1 ? 'checked' : '' }}
                                             />&nbsp;&nbsp;&nbsp;Status
                                         </label>
                                     </div>
@@ -129,7 +130,7 @@
                                 <div class="flex items-center">
                                     <div class="">
                                         <label class="">
-                                            <input class="text-sky-500 focus:ring-sky-500" type="checkbox" id="featured" name="featured"
+                                            <input class="text-sky-500 focus:ring-sky-500" type="checkbox" id="featured" name="featured" {{ $product->featured == 1 ? 'checked' : '' }}
                                             />&nbsp;&nbsp;&nbsp;Featured
                                         </label>
                                     </div>
@@ -140,7 +141,7 @@
                                 <!-- Submit & Cancel Buttons -->
                                 <div class="flex items-center mt-4">
                                     <button type="submit" class="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
-                                        Save Product</button>
+                                        Update Product</button>
                                     &nbsp;&nbsp;&nbsp;
                                     <a href="{{ route('admin.products.index') }}" class="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                                     Go Back</a>

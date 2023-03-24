@@ -24,13 +24,17 @@ class StoreProductFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'      =>  'required|max:255',
-            'sku'       =>  'required',
-            'brand_id'  =>  'required|not_in:0',
-            'price'     =>  'required|regex:/^\d+(\.\d{1,2})?$/',
-            'sale_price'     =>  'regex:/^\d+(\.\d{1,2})?$/',
-            'quantity'  =>  'required|numeric',
-            'weight'    =>  'nullable',
+            'name' => 'required|max:255',
+            'sku' => 'required',
+            'brand_id' => 'required|exists:brands,id',
+            'price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            'sale_price' => 'nullable|regex:/^\d+(\.\d{1,2})?$/',
+            'quantity' => 'required|integer|min:1',
+            'weight' => 'nullable|numeric|min:0',
+            'slug' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'categories' => 'nullable|array|min:1',
+            'categories.*' => 'exists:categories,id' 
         ];
     }
 }
