@@ -141,9 +141,18 @@ function toggleNav() {
                     quis varius justo vestibulum. </p>
 
                     <br><br>
-                    {{ $product }}
+                    Here is the ID: {{ $id }}
                     <br><br>
-                    {{ $product->id }}
+                    @if(session('success'))
+            <div class="bg-green-500 text-white px-4 py-2 rounded transition-all duration-500" id="success-message">
+                {{ session('success') }}
+            </div>
+            <script>
+                setTimeout(function() {
+                    document.getElementById("success-message").style.opacity = 0;
+                }, 1500); // 3000 milliseconds = 3 seconds
+            </script>
+        @endif
                 </div>
             </div>
 

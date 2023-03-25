@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Model;
 
-class Product extends Pivot
+class Product extends Model
 {
     /**
      * @var string

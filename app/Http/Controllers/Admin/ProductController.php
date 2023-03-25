@@ -11,6 +11,7 @@ use App\Traits\UploadAble;
 use Illuminate\Http\UploadedFile;
 use App\Http\Requests\StoreProductFormRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -57,18 +58,21 @@ class ProductController extends Controller
      */
     public function store(StoreProductFormRequest $request)
     {
-        $params = $request->validated();
-
-        $productId = DB::table('products')->insertGetId($params);
-
-        $product = Product::find($productId);
-        
-        if (!$product) {
-            return redirect()->back()->with('error', 'Error occurred while creating product.');
-        }
-
-        $categories = $request->input('categories', []);
-        $product->categories()->sync($categories);
+        $product = Product::create([
+            'name' => $request->name,
+            'sku' => $request->sku,
+            'brand_id' => $request->brand_id,
+            'price' => $request->price,
+            'sale_price' => $request->sale_price,
+            'quantity' => $request->quantity,
+            'weight' => $request->weight,
+            'description' => $request->description,
+            'status' => $request->has('status') ? 1 : 0,
+            'featured' => $request->has('featured') ? 1 : 0,
+            'slug' => Str::slug($request->name),
+        ]);
+    
+        $product->categories()->sync($request->categories);
 
         return redirect()->route('admin.products.index')->with('success', 'Product added successfully');
     }
@@ -110,6 +114,7 @@ class ProductController extends Controller
      */
     public function update(StoreProductFormRequest $request, Product $product)
     {
+
         $product->update([
             'name' => $request->name,
             'sku' => $request->sku,
