@@ -36,7 +36,7 @@
                 </div>    
 
                 <div class="border border-gray-300 bg-white h-86 ml-4 p-4 shadow-sm w-3/5">
-                    <div id="general">
+                    <div id="general" class="hidden">
                         <div class="">
                             <h3 class="text-lg font-bold">Product information</h3>
                             <hr class="py-4">
@@ -165,12 +165,52 @@
                 </div> 
 
                 <!-- Tab 2 -->
-            <div id="tab2" class="hidden">
+            <div id="tab2" class="">
             <form action="{{ route('admin.products.images.upload') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <input type="file" name="files[]" multiple>
-                <button type="submit">Upload Images</button>
+                <button class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg" type="submit">Upload Images</button>
             </form>
+            product images: {{ $product->images }}
+            @if ($product->images)
+                <hr class="mt-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                @foreach ($product->images as $image)
+                    <div>
+                    <div class="bg-white shadow rounded-lg overflow-hidden">
+                        <img src="{{ asset('storage/'.$image->full) }}" class="w-full h-48 object-cover" alt="img">
+                        <div class="p-4">
+                        <a href="{{ route('admin.products.images.delete', $image->id) }}" class="float-right text-red-600">
+                            <i class="fa fa-fw fa-lg fa-trash"></i>
+                        </a>
+                        </div>
+                    </div>
+                    </div>
+                @endforeach
+                </div>
+            @else
+                <div class="bg-white shadow rounded-lg overflow-hidden">
+                <img src="https://via.placeholder.com/80x80?text=Placeholder+Image" id="faviconImg" class="w-full h-48 object-cover" alt="img">
+                    <div class="p-4">
+                        <span>No image available</span>
+                    </div>
+                </div>    
+            @endif
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                @for ($i = 0; $i < 5; $i++)
+                    <div>
+                        <div class="bg-white shadow rounded-lg overflow-hidden">
+                            <img src="https://via.placeholder.com/80x80?text=Placeholder+Image" class="w-full h-48 object-cover" alt="img">
+                            <div class="p-4">
+                                <span>No image available</span>
+                            </div>
+                        </div>
+                    </div>
+                @endfor
+            </div>
+ 
 
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
             <script src="{{ asset('js/jquery.fileupload.js') }}"></script>
