@@ -27,7 +27,6 @@
                 <div class="w-1/5">
                     <div class="border border-gray-300 bg-white h-86 shadow-sm">
                         <a href="#general" class="nav-link block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-sky-200">General</a>
-                        <a href="#logo" class="nav-link block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-sky-200 {{ Request::is('logo*') ? 'active' : '' }}">Site Logo</a>
                     </div>   
                 </div>    
 

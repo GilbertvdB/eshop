@@ -21,15 +21,14 @@
 
             <div class="flex">
                 <div class="w-1/5">
-                <div class="border border-gray-300 bg-white h-86 shadow-sm sm:rounded-lg">
-                    <a href="#general" class="nav-link block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-sky-200" onclick="openSettings(event, 'general')">General</a>
-                    <a href="#logo" class="nav-link block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-sky-200" onclick="openSettings(event, 'logo')">Site Logo</a>
-                    <a href="#footer-seo" class="nav-link block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-sky-200" onclick="openSettings(event, 'footer-seo')">Footer &amp; SEO</a>
-                    <a href="#social-links" class="nav-link block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-sky-200" onclick="openSettings(event, 'social-links')">Social Links</a>
-                    <a href="#analytics" class="nav-link block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-sky-200" onclick="openSettings(event, 'analytics')">Analytics</a>
-                    <a href="#payments" class="nav-link block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-sky-200" onclick="openSettings(event, 'payments')">Payments</a>
-                </div>
-
+                    <div class="border border-gray-300 bg-white h-86 shadow-sm sm:rounded-lg">
+                        <a href="#general" class="nav-link block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-sky-200" onclick="openSettings(event, 'general')">General</a>
+                        <a href="#logo" class="nav-link block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-sky-200" onclick="openSettings(event, 'logo')">Site Logo</a>
+                        <a href="#footer-seo" class="nav-link block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-sky-200" onclick="openSettings(event, 'footer-seo')">Footer &amp; SEO</a>
+                        <a href="#social-links" class="nav-link block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-sky-200" onclick="openSettings(event, 'social-links')">Social Links</a>
+                        <a href="#analytics" class="nav-link block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-sky-200" onclick="openSettings(event, 'analytics')">Analytics</a>
+                        <a href="#payments" class="nav-link block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-sky-200" onclick="openSettings(event, 'payments'); return false;">Payments</a>
+                    </div>
                 </div>
                     
                     <div id="general" class="tabcontent border bg-white border-gray-300 w-3/5 h-fit ml-4 p-4 hidden">

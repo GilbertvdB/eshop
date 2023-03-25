@@ -125,51 +125,44 @@ function toggleNav() {
     </div>
         -->
 
-        <button class="ml-64 px-4 py-2 text-lg font-medium text-white bg-black focus:outline-none hover:bg-gray-700" onclick="toggleNav()">Open/Close SideNav</button>
+        <div class="flex">
+  <!-- Sidebar -->
+  <div class="w-1/4 bg-gray-200 h-screen">
+    <ul class="mt-8">
+      <li class="mb-4"><a href="#" class="text-gray-700 hover:text-gray-900" onclick="showTab('tab1')">Link 1</a></li>
+      <li class="mb-4"><a href="#" class="text-gray-700 hover:text-gray-900" onclick="showTab('tab2')">Link 2</a></li>
+    </ul>
+  </div>
 
-        <div class="border max-w-full"> 
+  <!-- Content -->
+  <div class="w-3/4 p-8">
 
-            <div class="sidenav fixed h-full w-48 top-10 left-0 z-10 bg-gray-700 text-white overflow-x-hidden transition-all duration-500" style="transform: translateX(-100%)">
-                <a href="#" class="block px-8 py-4 text-gray-400 text-lg font-medium hover:text-white transition duration-300">The Dashboard</a>
-            </div>
+    <!-- Tab 1 -->
+    <div id="tab1" class="mt-8">
+      <h2 class="text-xl font-semibold mb-4">Tab 1 content goes here</h2>
+      <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel lacus sit amet purus tristique bibendum. Vivamus bibendum lacinia risus, id pretium purus finibus id. </p>
+    </div>
 
-            <div class="content transition-all duration-500">
-            
-                <div class="bg-sky-100 mx-6">
-                    <p class="mx-10">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel erat quis ipsum placerat vehicula euismod vel eros. Etiam sagittis mi eget orci sollicitudin,
-                    quis varius justo vestibulum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel erat quis ipsum placerat vehicula euismod vel eros. Etiam sagittis mi eget orci sollicitudin,
-                    quis varius justo vestibulum. </p>
+    <!-- Tab 2 -->
+    <div id="tab2" class="mt-8 hidden">
+      <h2 class="text-xl font-semibold mb-4">Tab 2 content goes here</h2>
+      <p> Ut at tellus hendrerit, fringilla nunc eget, posuere tortor. Nullam vel urna vel magna feugiat fermentum vitae ac elit. Duis facilisis erat eu est feugiat, eget ullamcorper mi fringilla. </p>
+    </div>
+  </div>
+</div>
 
-                    <br><br>
-                    Here is the ID: {{ $id }}
-                    <br><br>
-                    @if(session('success'))
-            <div class="bg-green-500 text-white px-4 py-2 rounded transition-all duration-500" id="success-message">
-                {{ session('success') }}
-            </div>
-            <script>
-                setTimeout(function() {
-                    document.getElementById("success-message").style.opacity = 0;
-                }, 1500); // 3000 milliseconds = 3 seconds
-            </script>
-        @endif
-                </div>
-            </div>
-
-            <script>
-                function toggleNav() {
-                    var sidenav = document.querySelector(".sidenav");
-                    var content = document.querySelector(".content");
-                    if (sidenav.style.transform === "translateX(0%)") {
-                        sidenav.style.transform = "translateX(-100%)";
-                        content.classList.remove("ml-48");
-                
-                    } else {
-                        sidenav.style.transform = "translateX(0%)";
-                        content.classList.add("ml-48");
-                    }
-                }
-            </script>
+<script>
+  function showTab(tabId) {
+    const tabs = document.querySelectorAll('#tab1, #tab2');
+    tabs.forEach(tab => {
+      if (tab.id === tabId) {
+        tab.classList.remove('hidden');
+      } else {
+        tab.classList.add('hidden');
+      }
+    });
+  }
+</script>
 
         </div>
 

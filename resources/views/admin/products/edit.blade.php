@@ -10,7 +10,7 @@
     @section('content')
 
     <div class="py-2">
-        <div class="max-w-7xl sm:px-6 lg:px-8">
+        <div class="sm:px-6 lg:px-8">
 
         @if(session('error'))
             <div class="bg-red-500 text-white px-4 py-2 rounded transition-all duration-500" id="error-message">
@@ -23,136 +23,184 @@
             </script>
         @endif
 
-            <div class="border border-gray-300 bg-white h-86 p-4 shadow-sm">
-                <div class="">
-                    <div class="">
-                        <h3 class="text-lg font-bold">Product information</h3>
-                        <hr class="py-4">
-                        <form action="{{ route('admin.products.update', $product) }}" method="POST" role="form" enctype="multipart/form-data">
-                            @csrf
-                            @method('patch')
-                            <div class="">
-                                <!-- Name -->
-                                <div>
-                                    <x-input-label for="name" :value="__('Name')" />
-                                    <x-text-input id="name" class="block mt-1 mb-2 w-full" type="text" name="name" :value="old('name', $product->name) " placeholder="Enter attribute name"  required/>
-                                    <input type="hidden" name="id" value="{{ $product->id }}">
-                                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                                </div>
+        <div class="flex">
+                <div class="w-1/5">
+                    <div class="border border-gray-300 bg-white h-86 shadow-sm">
+                        <a href="#general" class="nav-link block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-sky-200 active:border-l-4 active:border-sky-500 active" 
+                            onclick="showTab('general'); return false;">
+                            General</a>
+                        <a href="#tab2" class="nav-link block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-sky-200 active:border-l-4 active:border-sky-500 {{ Request::is('images*') ? 'active' : '' }}" 
+                            onclick="showTab('tab2'); return false;">
+                            Images</a>
+                    </div>   
+                </div>    
 
-                                <div class="flex flew-row">
-                                    <!-- SKU -->
-                                    <div class="w-1/2 mr-4">
-                                        <x-input-label for="sku" :value="__('Sku')" />
-                                        <x-text-input id="sku" class="block mt-1 mb-2 w-full" type="text" name="sku" :value="old('sku', $product->sku) " placeholder="Enter product sku"  />
-                                        <x-input-error :messages="$errors->get('sku')" class="mt-2" />
+                <div class="border border-gray-300 bg-white h-86 ml-4 p-4 shadow-sm w-3/5">
+                    <div id="general">
+                        <div class="">
+                            <h3 class="text-lg font-bold">Product information</h3>
+                            <hr class="py-4">
+                            <form action="{{ route('admin.products.update', $product) }}" method="POST" role="form" enctype="multipart/form-data">
+                                @csrf
+                                @method('patch')
+                                <div class="">
+                                    <!-- Name -->
+                                    <div>
+                                        <x-input-label for="name" :value="__('Name')" />
+                                        <x-text-input id="name" class="block mt-1 mb-2 w-full" type="text" name="name" :value="old('name', $product->name) " placeholder="Enter attribute name"  required/>
+                                        <input type="hidden" name="id" value="{{ $product->id }}">
+                                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                     </div>
 
-                                    <!-- Brand -->
-                                    <div class="w-1/2 ml-4">
-                                        <x-input-label for="brand" :value="__('Brand')" />
-                                        <select name="brand_id" id="brand" class=" block mt-1 mb-2 w-full border-gray-300 focus:border-sky-500 focus:ring-sky-500 rounded-md shadow-sm">
-                                            <option value="0" class="">Select a brand</option>
-                                            @foreach($brands as $brand)
-                                                <option value="{{ $brand->id }}" class="" @if($brand->id == old('brand_id', $product->brand_id)) selected @endif> {{ $brand->name }} </option>
+                                    <div class="flex flew-row">
+                                        <!-- SKU -->
+                                        <div class="w-1/2 mr-4">
+                                            <x-input-label for="sku" :value="__('Sku')" />
+                                            <x-text-input id="sku" class="block mt-1 mb-2 w-full" type="text" name="sku" :value="old('sku', $product->sku) " placeholder="Enter product sku"  />
+                                            <x-input-error :messages="$errors->get('sku')" class="mt-2" />
+                                        </div>
+
+                                        <!-- Brand -->
+                                        <div class="w-1/2 ml-4">
+                                            <x-input-label for="brand" :value="__('Brand')" />
+                                            <select name="brand_id" id="brand" class=" block mt-1 mb-2 w-full border-gray-300 focus:border-sky-500 focus:ring-sky-500 rounded-md shadow-sm">
+                                                <option value="0" class="">Select a brand</option>
+                                                @foreach($brands as $brand)
+                                                    <option value="{{ $brand->id }}" class="" @if($brand->id == old('brand_id', $product->brand_id)) selected @endif> {{ $brand->name }} </option>
+                                                @endforeach
+                                            </select>
+                                            <x-input-error :messages="$errors->get('brand_id')" class="mt-2" />
+                                        </div>
+                                    </div>
+
+                                    <!-- Categories -->
+                                    <div>
+                                        <x-input-label for="categories" :value="__('Categories')" />
+                                        <select name="categories[]" id="categories" class="block mt-1 mb-2 w-full border-gray-300 focus:border-sky-500 focus:ring-sky-500 rounded-md shadow-sm" multiple>
+                                            @foreach($categories as $category)
+                                            <option value="{{ $category->id }}" {{ in_array($category->id, $product->categories->pluck('id')->toArray()) ? 'selected' : '' }}> {{ $category->name }} </option>
                                             @endforeach
                                         </select>
-                                        <x-input-error :messages="$errors->get('brand_id')" class="mt-2" />
-                                    </div>
-                                </div>
-
-                                <!-- Categories -->
-                                <div>
-                                    <x-input-label for="categories" :value="__('Categories')" />
-                                    <select name="categories[]" id="categories" class="block mt-1 mb-2 w-full border-gray-300 focus:border-sky-500 focus:ring-sky-500 rounded-md shadow-sm" multiple>
-                                        @foreach($categories as $category)
-                                        <option value="{{ $category->id }}" {{ in_array($category->id, $product->categories->pluck('id')->toArray()) ? 'selected' : '' }}> {{ $category->name }} </option>
-                                        @endforeach
-                                    </select>
-                                    <x-input-error :messages="$errors->get('categories')" class="mt-2" />
-                                </div>
-
-                                <div class="flex flew-row">
-                                    <!-- Price -->
-                                    <div class="w-1/2 mr-4">
-                                        <x-input-label for="price" :value="__('Price')" />
-                                        <x-text-input id="price" class="block mt-1 mb-2 w-full" type="text" name="price" :value="old('price', $product->price) " placeholder="Enter product price"  />
-                                        <x-input-error :messages="$errors->get('price')" class="mt-2" />
+                                        <x-input-error :messages="$errors->get('categories')" class="mt-2" />
                                     </div>
 
-                                    <!-- Sale Price -->
-                                    <div class="w-1/2 ml-4">
-                                        <x-input-label for="sale_price" :value="__('Sale Price')" />
-                                        <x-text-input id="sale_price" class="block mt-1 mb-2 w-full" type="text" name="sale_price" :value="old('sale_price', $product->sale_price)" placeholder="Enter product sale price"  />
-                                        <x-input-error :messages="$errors->get('sale_price')" class="mt-2" />
-                                    </div>
-                                </div>
+                                    <div class="flex flew-row">
+                                        <!-- Price -->
+                                        <div class="w-1/2 mr-4">
+                                            <x-input-label for="price" :value="__('Price')" />
+                                            <x-text-input id="price" class="block mt-1 mb-2 w-full" type="text" name="price" :value="old('price', $product->price) " placeholder="Enter product price"  />
+                                            <x-input-error :messages="$errors->get('price')" class="mt-2" />
+                                        </div>
 
-                                <div class="flex flew-row">    
-                                    <!-- Quantity -->
-                                    <div class="w-1/2 mr-4">
-                                        <x-input-label for="quantity" :value="__('Quantity')" />
-                                        <x-text-input id="quantity" class="block mt-1 mb-2 w-full" type="number" name="quantity" :value="old('quantity', $product->quantity)" placeholder="Enter product quantity"  />
-                                        <x-input-error :messages="$errors->get('quantity')" class="mt-2" />
+                                        <!-- Sale Price -->
+                                        <div class="w-1/2 ml-4">
+                                            <x-input-label for="sale_price" :value="__('Sale Price')" />
+                                            <x-text-input id="sale_price" class="block mt-1 mb-2 w-full" type="text" name="sale_price" :value="old('sale_price', $product->sale_price)" placeholder="Enter product sale price"  />
+                                            <x-input-error :messages="$errors->get('sale_price')" class="mt-2" />
+                                        </div>
                                     </div>
 
-                                    <!-- Weight -->
-                                    <div class="w-1/2 ml-4">
-                                        <x-input-label for="weight" :value="__('Weight')" />
-                                        <x-text-input id="weight" class="block mt-1 mb-2 w-full" type="text" name="weight" :value="old('weight', $product->weight)" placeholder="Enter product weight"  />
-                                        <x-input-error :messages="$errors->get('weight')" class="mt-2" />
-                                    </div>
-                                </div>
+                                    <div class="flex flew-row">    
+                                        <!-- Quantity -->
+                                        <div class="w-1/2 mr-4">
+                                            <x-input-label for="quantity" :value="__('Quantity')" />
+                                            <x-text-input id="quantity" class="block mt-1 mb-2 w-full" type="number" name="quantity" :value="old('quantity', $product->quantity)" placeholder="Enter product quantity"  />
+                                            <x-input-error :messages="$errors->get('quantity')" class="mt-2" />
+                                        </div>
 
-                                <!-- Description -->
-                                <div>
-                                <x-input-label for="description" :value="__('Description')" />
-                                <textarea
-                                        name="description"
-                                        placeholder="{{ __('Enter description') }}"
-                                        class="block mt-1 mb-2 w-full border-gray-300 focus:border-sky-500 focus:ring-sky-500 rounded-md shadow-sm"
-                                        rows="8"
-                                    >{{ old('description', $product->description) }}</textarea>
-                                    <x-input-error :messages="$errors->get('description')" class="mt-2" />
-                                </div>
-
-                                <!-- Status -->
-                                <div class="flex items-center">
-                                    <div class="">
-                                        <label class="">
-                                            <input class="text-sky-500 focus:ring-sky-500" type="checkbox" id="status" name="status" {{ $product->status == 1 ? 'checked' : '' }}
-                                            />&nbsp;&nbsp;&nbsp;Status
-                                        </label>
+                                        <!-- Weight -->
+                                        <div class="w-1/2 ml-4">
+                                            <x-input-label for="weight" :value="__('Weight')" />
+                                            <x-text-input id="weight" class="block mt-1 mb-2 w-full" type="text" name="weight" :value="old('weight', $product->weight)" placeholder="Enter product weight"  />
+                                            <x-input-error :messages="$errors->get('weight')" class="mt-2" />
+                                        </div>
                                     </div>
-                                </div>
-                                
-                                <!-- Featured -->
-                                <div class="flex items-center">
-                                    <div class="">
-                                        <label class="">
-                                            <input class="text-sky-500 focus:ring-sky-500" type="checkbox" id="featured" name="featured" {{ $product->featured == 1 ? 'checked' : '' }}
-                                            />&nbsp;&nbsp;&nbsp;Featured
-                                        </label>
-                                    </div>
-                                </div>
-                                
-                                <hr class="my-4">
-                                
-                                <!-- Submit & Cancel Buttons -->
-                                <div class="flex items-center mt-4">
-                                    <button type="submit" class="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
-                                        Update Product</button>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <a href="{{ route('admin.products.index') }}" class="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                                    Go Back</a>
-                                </div>
-                        </form>
 
+                                    <!-- Description -->
+                                    <div>
+                                    <x-input-label for="description" :value="__('Description')" />
+                                    <textarea
+                                            name="description"
+                                            placeholder="{{ __('Enter description') }}"
+                                            class="block mt-1 mb-2 w-full border-gray-300 focus:border-sky-500 focus:ring-sky-500 rounded-md shadow-sm"
+                                            rows="8"
+                                        >{{ old('description', $product->description) }}</textarea>
+                                        <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                                    </div>
+
+                                    <!-- Status -->
+                                    <div class="flex items-center">
+                                        <div class="">
+                                            <label class="">
+                                                <input class="text-sky-500 focus:ring-sky-500" type="checkbox" id="status" name="status" {{ $product->status == 1 ? 'checked' : '' }}
+                                                />&nbsp;&nbsp;&nbsp;Status
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Featured -->
+                                    <div class="flex items-center">
+                                        <div class="">
+                                            <label class="">
+                                                <input class="text-sky-500 focus:ring-sky-500" type="checkbox" id="featured" name="featured" {{ $product->featured == 1 ? 'checked' : '' }}
+                                                />&nbsp;&nbsp;&nbsp;Featured
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <hr class="my-4">
+                                    
+                                    <!-- Submit & Cancel Buttons -->
+                                    <div class="flex items-center mt-4">
+                                        <button type="submit" class="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                                            Update Product</button>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <a href="{{ route('admin.products.index') }}" class="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                                        Go Back</a>
+                                    </div>
+                            </form>
+
+                        </div>
                     </div>
-                </div>
-            </div> 
-            
+                </div> 
 
+                <!-- Tab 2 -->
+            <div id="tab2" class="hidden">
+            <form action="{{ route('admin.products.images.upload') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="file" name="files[]" multiple>
+                <button type="submit">Upload Images</button>
+            </form>
+
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+            <script src="{{ asset('js/jquery.fileupload.js') }}"></script>
+            <script>
+                $('input[type=file]').fileupload({
+                    url: "{{ route('admin.products.images.upload') }}",
+                    dataType: 'json',
+                    done: function (e, data) {
+                        // Handle the uploaded files here
+                    }
+                });
+            </script>
+
+
+            </div>
+
+        </div>    
+        
+        <script>
+        function showTab(tabId) {
+            const tabs = document.querySelectorAll('#general, #tab2');
+            tabs.forEach(tab => {
+            if (tab.id === tabId) {
+                tab.classList.remove('hidden');
+            } else {
+                tab.classList.add('hidden');
+            }
+            });
+        }
+        </script>
 
 
         </div>
