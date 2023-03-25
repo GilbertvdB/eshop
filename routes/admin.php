@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductImageController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,10 @@ Route::group(['middleware' => ['auth:admin']], function () {
 
     // Products Route
     Route::resource('products', ProductController::class)->names('admin.products');
+
+    // Images Route
+    Route::post('images/upload', [ProductImageController::class, 'upload'])->name('admin.products.images.upload');
+    Route::get('images/{id}/delete', [ProductImageController::class, 'delete'])->name('admin.products.images.delete');
 
 
 });
