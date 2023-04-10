@@ -29,14 +29,15 @@
                         <a href="#general" class="nav-link block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-sky-200 active:border-l-4 active:border-sky-500 active" 
                             onclick="showTab('general'); return false;">
                             General</a>
-                        <a href="#tab2" class="nav-link block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-sky-200 active:border-l-4 active:border-sky-500 {{ Request::is('images*') ? 'active' : '' }}" 
-                            onclick="showTab('tab2'); return false;">
+                        <a href="#images" class="nav-link block text-black py-3 px-4 w-full text-left focus:outline-none hover:bg-sky-200 active:border-l-4 active:border-sky-500 {{ Request::is('images*') ? 'active' : '' }}" 
+                            onclick="showTab('images'); return false;">
                             Images</a>
                     </div>   
                 </div>    
 
+                <!-- General Tab -->
                 <div class="border border-gray-300 bg-white h-86 ml-4 p-4 shadow-sm w-3/5">
-                    <div id="general" class="hidden">
+                    <div id="general" class="">
                         <div class="">
                             <h3 class="text-lg font-bold">Product information</h3>
                             <hr class="py-4">
@@ -164,8 +165,8 @@
                     </div>
                 </div> 
 
-                <!-- Tab 2 -->
-            <div id="tab2" class="">
+                <!-- Images Tab -->
+            <div id="images" class="hidden">
             <form action="{{ route('admin.products.images.upload') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -231,7 +232,7 @@
         
         <script>
         function showTab(tabId) {
-            const tabs = document.querySelectorAll('#general, #tab2');
+            const tabs = document.querySelectorAll('#general, #images');
             tabs.forEach(tab => {
             if (tab.id === tabId) {
                 tab.classList.remove('hidden');
@@ -239,7 +240,20 @@
                 tab.classList.add('hidden');
             }
             });
+
+            // Get the menu link that corresponds to the clicked tab
+            const menuLink = document.querySelector(`.nav-link[href="#${tabId}"]`);
+
+            // Remove the 'active' class from any previously active menu item
+            const activeMenuLink = document.querySelector('.nav-link.active');
+            if (activeMenuLink) {
+            activeMenuLink.classList.remove('active');
+            }
+
+            // Add the 'active' class to the clicked menu item
+            menuLink.classList.add('active');
         }
+
         </script>
 
 
