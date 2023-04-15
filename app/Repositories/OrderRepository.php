@@ -63,9 +63,23 @@ class OrderRepository implements OrderContract
         return $order;
     }
 
-    public function listOrders(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
+    public function listOrder(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
     {
         return $this->model->orderBy($order, $sort)->get($columns);
+    }
+
+    public function listOrders(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
+    {
+        $search = "";
+
+        $orders = Order::where('name', 'like', '%'.$search.'%')
+                    ->orWhere('slug', 'like', '%'.$search.'%')
+                    ->orWhereHas('parent', function($query) use ($search) {
+                        $query->where('name', 'like', '%'.$search.'%');
+                    })
+                    ->paginate(10);
+
+        return $orders;
     }
 
     public function findOrderByNumber($orderNumber): ?Order
