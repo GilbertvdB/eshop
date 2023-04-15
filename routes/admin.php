@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
+use App\Http\Controllers\Admin\OrderController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +47,10 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::post('images/upload', [ProductImageController::class, 'upload'])->name('admin.products.images.upload');
     Route::get('images/{id}/delete', [ProductImageController::class, 'delete'])->name('admin.products.images.delete');
 
+    // Order Manangement Route
+    Route::prefix('orders')->group(function () {
+        Route::get('/', [OrderController::class, 'index'])->name('admin.orders.index');
+        Route::get('/{order}/show', [OrderController::class, 'show'])->name('admin.orders.show');
 
 });
 
