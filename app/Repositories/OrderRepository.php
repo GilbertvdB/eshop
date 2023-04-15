@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderRepository implements OrderContract
 {
+    protected $model;
+
     public function __construct(Order $model)
     {
         // parent::__construct($model);
@@ -59,5 +61,15 @@ class OrderRepository implements OrderContract
         }
 
         return $order;
+    }
+
+    public function listOrders(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
+    {
+        return $this->model->orderBy($order, $sort)->get($columns);
+    }
+
+    public function findOrderByNumber($orderNumber): ?Order
+    {
+        return $this->model->where('order_number', $orderNumber)->first();
     }
 }
