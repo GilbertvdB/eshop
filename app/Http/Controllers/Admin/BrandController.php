@@ -107,16 +107,10 @@ class BrandController extends Controller
      */
     public function edit(Brand $brand)
     {
-        // $brand = Brand::find($brands);
-
-        // $this->setPageTitle('Brands', 'Edit Brand : '.$brand->name);
-        // return view('admin.brands.edit', compact('brand'));
-
         $pageTitle = 'Brands';
         $pageDescription = 'Edit Brand: ' . $brand->name;
 
         return view('admin.brands.edit', compact('brand', 'pageTitle', 'pageDescription'));
-        // return view('test', compact('brand'));
     }
 
     /**
