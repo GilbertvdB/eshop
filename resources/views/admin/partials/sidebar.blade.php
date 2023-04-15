@@ -82,6 +82,17 @@
     </svg>
       Products</a>
     </li>
+    <li class="text-white font-medium py-2">
+      <a href="{{ route('admin.orders.index') }}" class="block flex items-center hover:text-sky-500 {{ (str_starts_with(request()->route()->getName(), 'admin.orders')) ? 'text-sky-500' : '' }}">
+      <svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier"> <rect x="5" y="4" width="18" height="19" rx="2" stroke="currentColor" stroke-width="2"></rect> 
+        <path d="M9 9H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path> 
+        <path d="M9 13H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path> 
+        <path d="M9 17H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path> </g>
+      </svg>
+      Orders</a>
+    </li>
     
   </ul>
 
