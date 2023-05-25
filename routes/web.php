@@ -1,10 +1,13 @@
 <?php
 
+use App\Models\Product;
+
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\WishListController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
@@ -28,8 +31,10 @@ Route::get('/test', function () {
 
 Route::get('/', function () {
     // return view('welcome');
-    return redirect()->route('product.index');
+    return redirect()->route('home.index');
 });
+
+// Route::view('/', 'site.pages.homepage', compact('products'));
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -40,6 +45,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+//routegroup for homepage
+Route::get('home', [HomeController::class, 'index'])->name('home.index');
 
 //routegroup for the product models tables. Public routes
 Route::get('product', [ProductController::class, 'index'])->name('product.index');
